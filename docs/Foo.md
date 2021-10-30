@@ -36,7 +36,7 @@ Does another thing
 
 Does something
 
-*More info about do something*
+*More info about do something      and testing double lines*
 
 #### Parameters
 

@@ -29,6 +29,7 @@ contract Foo {
 
   /// @notice Does something
   /// @dev More info about do something
+  ///      and testing double lines
   /// @param a Address to do something
   /// @param b Number to do something
   /// @return foo First Return variable

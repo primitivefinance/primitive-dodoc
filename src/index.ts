@@ -236,6 +236,13 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
         encoding: 'utf-8',
       },
     );
+
+    await fs.promises.writeFile(
+      path.join('docs', `${docs[i].name}.json`),
+      JSON.stringify(docs[i], null, 4), {
+        encoding: 'utf-8',
+      },
+    );
   }
 
   console.log('Generated docs for', docs.length, 'contract(s)');
