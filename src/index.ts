@@ -9,6 +9,7 @@ import {
   TASK_COMPILE,
 } from 'hardhat/builtin-tasks/task-names';
 import { HardhatConfig, HardhatUserConfig } from 'hardhat/types';
+import * as Sqrl from 'squirrelly';
 
 import {
   CompilerOutputContractWithDocumentation,
@@ -16,16 +17,63 @@ import {
   Methods,
   ContractDocumentation,
   AbiElement,
+  Errors,
 } from './dodocTypes';
-import toMarkdown from './toMarkdown';
 import './type-extensions';
+
+function getCodeFromAbi(element: AbiElement): string {
+  let code = `${element.type} ${element.name}(`;
+
+  if (element.inputs) {
+    for (let i = 0; i < element.inputs.length; i += 1) {
+      code += element.inputs[i].type;
+
+      if (element.inputs[i].name) code += ' ';
+
+      if (element.type === 'event' && element.inputs[i].indexed) {
+        code += 'indexed ';
+      }
+
+      code += element.inputs[i].name;
+
+      if (i + 1 < element.inputs.length) code += ', ';
+    }
+  }
+
+  code += ')';
+
+  if (element.type === 'function') {
+    code += ` external ${element.stateMutability}`;
+  }
+
+  if (element.outputs && element.outputs.length > 0) {
+    code += ' returns (';
+
+    for (let i = 0; i < element.outputs.length; i += 1) {
+      code += element.outputs[i].type;
+
+      if (element.outputs[i].name) code += ' ';
+
+      code += element.outputs[i].name;
+
+      if (i + 1 < element.outputs.length) code += ', ';
+    }
+
+    code += ')';
+  }
+
+  return code;
+}
 
 extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) => {
   // eslint-disable-next-line no-param-reassign
   config.dodoc = {
     include: userConfig.dodoc?.include || [],
     exclude: userConfig.dodoc?.exclude || [],
-    runOnCompile: userConfig.dodoc?.runOnCompile || false,
+    runOnCompile: userConfig.dodoc?.runOnCompile || true,
+    testMode: userConfig.dodoc?.testMode || false,
+    outputDir: userConfig.dodoc?.outputDir || './docs',
+    templatePath: userConfig.dodoc?.templatePath || './src/template.sqrl',
   };
 });
 
@@ -60,10 +108,57 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
         name,
       };
 
-      console.log(`Generating documentation for contract ${name}...`);
+      // console.log(`📝 Generating documentation for contract ${name}...`);
 
       const buildInfo = await hre.artifacts.getBuildInfo(qualifiedName);
       const info = buildInfo?.output.contracts[source][name] as CompilerOutputContractWithDocumentation;
+
+      // Deals with the errors
+
+      // Temporary variable to stores the errors
+      const errors: Errors = {};
+
+      // Checks the errors in devdoc
+      for (const errorSig in info?.devdoc?.errors) {
+        const [errorName] = errorSig.split('(');
+
+        errors[errorName] = {
+          sig: errorSig,
+        };
+
+        const error = info?.devdoc?.errors[errorSig][0];
+
+        if (error?.details) errors[errorName].details = error.details;
+
+        if (error?.params) {
+          const errorArgTypes = errorSig.split('(')[1].split(')')[0].split(',');
+
+          errors[errorName].params = {};
+
+          const paramNames = Object.keys(error?.params);
+
+          for (let i = 0; i < paramNames.length; i += 1) {
+            errors[errorName].params![paramNames[i]] = {
+              type: errorArgTypes[i],
+              description: error.params[paramNames[i]],
+            };
+          }
+        }
+      }
+
+      for (const errorSig in info?.userdoc?.errors) {
+        const [errorName] = errorSig.split('(');
+
+        if (!errors[errorName]) {
+          errors[errorName] = {
+            sig: errorSig,
+          };
+        }
+
+        const error = info?.userdoc?.errors[errorSig][0];
+
+        if (error?.notice) errors[errorName].notice = error.notice;
+      }
 
       // Deals with the events
 
@@ -76,7 +171,9 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
         const [eventName] = eventSig.split('(');
 
         // Adds the event
-        events[eventName] = {};
+        events[eventName] = {
+          sig: eventSig,
+        };
 
         const event = info?.devdoc?.events[eventSig];
 
@@ -96,6 +193,7 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
           for (let i = 0; i < paramNames.length; i += 1) {
             events[eventName].params![paramNames[i]] = {
               type: eventArgTypes[i],
+              indexed: false,
               description: event.params[paramNames[i]],
             };
           }
@@ -108,7 +206,11 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
         const [eventName] = eventSig.split('(');
 
         // If event doesn't exist we add it
-        if (!events[eventName]) events[eventName] = {};
+        if (!events[eventName]) {
+          events[eventName] = {
+            sig: eventSig,
+          };
+        }
 
         const event = info?.userdoc?.events[eventSig];
         if (event?.notice) events[eventName].notice = event.notice;
@@ -184,14 +286,15 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
 
       for (let i = 0; i < abi.length; i += 1) {
         const abiElement = abi[i];
+        const code = getCodeFromAbi(abiElement);
 
         if (abiElement.type === 'function' && methods[abiElement.name]) {
+          methods[abiElement.name].code = code;
           methods[abiElement.name].stateMutability = abiElement.stateMutability;
 
           if (abiElement.outputs) {
             for (let j = 0; j < abiElement.outputs.length; j += 1) {
               const output = abiElement.outputs[j];
-
               const outputName = output.name.length > 0 ? output.name : `_${j}`;
 
               if (methods[abiElement.name].returns) {
@@ -208,6 +311,28 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
             }
           }
         }
+
+        if (abiElement.type === 'event' && events[abiElement.name]) {
+          events[abiElement.name].code = code;
+          if (abiElement.inputs) {
+            for (let j = 0; j < abiElement.inputs.length; j += 1) {
+              const input = abiElement.inputs[j];
+              const inputName = input.name.length > 0 ? input.name : `_${j}`;
+
+              if (events[abiElement.name].params) {
+                // @ts-ignore
+                if (events[abiElement.name].params[inputName]) {
+                  // @ts-ignore
+                  events[abiElement.name].params[inputName].indexed = input.indexed as boolean;
+                }
+              }
+            }
+          }
+        }
+
+        if (abiElement.type === 'error' && errors[abiElement.name]) {
+          errors[abiElement.name].code = code;
+        }
       }
 
       // Saves general information
@@ -216,34 +341,43 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
       contractDocumentation.details = info?.devdoc?.details || undefined;
       contractDocumentation.notice = info?.userdoc?.notice || undefined;
 
-      contractDocumentation.methods = methods;
-      contractDocumentation.events = events;
+      if (Object.keys(methods).length > 0) contractDocumentation.methods = methods;
+      if (Object.keys(events).length > 0) contractDocumentation.events = events;
+      if (Object.keys(errors).length > 0) contractDocumentation.errors = errors;
 
       docs.push(contractDocumentation);
     }
   }
 
   try {
-    await fs.promises.access('./docs');
+    await fs.promises.access(config.outputDir);
   } catch (e) {
-    await fs.promises.mkdir('./docs');
+    await fs.promises.mkdir(config.outputDir);
   }
+
+  const template = await fs.promises.readFile(config.templatePath, {
+    encoding: 'utf-8',
+  });
 
   for (let i = 0; i < docs.length; i += 1) {
+    const result = Sqrl.render(template, docs[i]);
+
     await fs.promises.writeFile(
-      path.join('docs', `${docs[i].name}.md`),
-      toMarkdown(docs[i]), {
+      path.join(config.outputDir, `${docs[i].name}.md`),
+      result, {
         encoding: 'utf-8',
       },
     );
 
-    await fs.promises.writeFile(
-      path.join('docs', `${docs[i].name}.json`),
-      JSON.stringify(docs[i], null, 4), {
-        encoding: 'utf-8',
-      },
-    );
+    if (config.testMode) {
+      await fs.promises.writeFile(
+        path.join(config.outputDir, `${docs[i].name}.json`),
+        JSON.stringify(docs[i], null, 4), {
+          encoding: 'utf-8',
+        },
+      );
+    }
   }
 
-  console.log('Generated docs for', docs.length, 'contract(s)');
+  console.log('✅ Generated documentation for', docs.length, docs.length > 1 ? 'contracts' : 'contract');
 });

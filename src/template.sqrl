@@ -1,0 +1,119 @@
+{{@if (it.name)}}# {{it.name}}{{/if}}
+
+
+{{@if (it.author)}}*{{it.author}}*{{/if}}
+
+
+{{@if (it.title)}}> {{it.title}}{{/if}}
+
+
+{{@if (it.notice)}}{{it.notice}}{{/if}}
+
+
+{{@if (it.details)}}*{{it.details}}*{{/if}}
+
+
+{{@if (it.methods)}}
+## Methods
+
+{{@foreach(it.methods) => key, val}}
+### {{key}}
+
+
+```solidity
+{{val.code}}
+
+```
+
+{{@if (val.notice)}}{{val.notice}}{{/if}}
+
+
+{{@if (val.details)}}*{{val.details}}*{{/if}}
+
+
+{{@if (val.params)}}
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+{{@foreach(val.params) => key, val}}
+| {{key}} | {{val.type}} | {{val.description}}
+
+{{/foreach}}
+{{/if}}
+
+{{@if (val.returns)}}
+#### Returns
+
+| Name | Type | Description |
+|---|---|---|
+{{@foreach(val.returns) => key, val}}
+| {{key}} | {{val.type}} | {{val.description}}
+
+{{/foreach}}
+
+{{/if}}
+{{/foreach}}
+{{/if}}
+
+{{@if (it.events)}}
+## Events
+
+{{@foreach(it.events) => key, val}}
+### {{key}}
+
+
+```solidity
+{{val.code}}
+
+```
+
+{{@if (val.notice)}}{{val.notice}}{{/if}}
+
+
+{{@if (val.details)}}*{{val.details}}*{{/if}}
+
+
+{{@if (val.params)}}
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+{{@foreach(val.params) => key, val}}
+| {{key}} {{@if (val.indexed)}}`indexed`{{/if}} | {{val.type}} | {{val.description}} |
+{{/foreach}}
+{{/if}}
+
+{{/foreach}}
+{{/if}}
+
+{{@if (it.errors)}}
+## Errors
+
+{{@foreach(it.errors) => key, val}}
+### {{key}}
+
+
+```solidity
+{{val.code}}
+
+```
+
+{{@if (val.notice)}}{{val.notice}}{{/if}}
+
+
+{{@if (val.details)}}*{{val.details}}*{{/if}}
+
+
+{{@if (val.params)}}
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+{{@foreach(val.params) => key, val}}
+| {{key}} | {{val.type}} | {{val.description}} |
+{{/foreach}}
+{{/if}}
+
+{{/foreach}}
+{{/if}}
