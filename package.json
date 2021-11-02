@@ -1,11 +1,38 @@
 {
-  "name": "primitive-dodoc",
+  "name": "hardhat-dodoc",
   "version": "0.0.1",
   "description": "Documentation generator plugin for Hardhat",
-  "main": "index.js",
-  "author": "clemlak",
+  "author": "Primitive",
   "license": "MIT",
-  "dependencies": {
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "keywords": [
+    "ethereum",
+    "smart-contracts",
+    "solidity",
+    "hardhat",
+    "hardhat-plugin"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "publish": "npm publish"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist/src/"
+  ],
+  "peerDependencies": {
+    "hardhat": "^2.6.4",
+    "squirrelly": "^8.0.8"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@types/chai": "^4.2.22",
@@ -15,15 +42,10 @@
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.4.7",
     "hardhat": "^2.6.4",
-    "squirrelly": "^8.0.8",
     "ts-node": "^10.2.1",
     "typescript": "^4.2.4"
   },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.21.0",
-    "@typescript-eslint/parser": "^4.21.0",
-    "eslint": "^7.24.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1"
+  "dependencies": {
+    "squirrelly": "^8.0.8"
   }
 }
