@@ -3,7 +3,7 @@
 Zero-config Hardhat plugin to generate documentation for all your Solidity contracts.
 
 - 🤪 Zero-configuration required
-- ✅ Compatible with Solidity >= 0.7.0
+- ✅ Compatible with latest Solidity versions
 - 📖 Default output to Markdown
 - 🔧 Extendable using custom templates
 
@@ -29,7 +29,45 @@ require('@primitivefinance/dodoc');
 import '@primitivefinance/dodoc';
 ```
 
-And you're done! Now you just need to run `npx hardhat compile` to generate the documentation of all your contracts.
+And you're done! Documentation will be automatically generated on the next compilation.
+
+## 📝 Usage
+
+The only thing you have to do is to comment your Solidity contracts using [NatSpec](https://docs.soliditylang.org/en/v0.8.9/natspec-format.html) format, more or less like this:
+
+```solidity
+/// @notice Does another thing when the function is called.
+/// @dev More info about doing another thing when the function is called.
+/// @param num A random number
+/// @return A random variable
+function anotherThing(uint256 num) external pure returns (uint256);
+```
+
+Dodoc will take care of everything and will generate the following output:
+
+> ## Methods
+>
+> ### anotherThing
+>
+> ```solidity
+> function anotherThing(uint256 num) external pure returns (uint256)
+> ```
+>
+> Does another thing when the function is called.
+>
+> *More info about doing another thing when the function is called.*
+>
+> #### Parameters
+>
+> | Name | Type | Description |
+> |---|---|---|
+> | num | uint256 | A random number
+>
+> #### Returns
+>
+> | Name | Type | Description |
+> |---|---|---|
+> | _0 | uint256 | A random variable
 
 ## 🔧 Config
 
@@ -53,7 +91,7 @@ const config: HardhatUserConfig = {
 export default config;
 ```
 
-Here are all the configuration parameters that are currently available, as said above, all of them are entirely optional:
+Here are all the configuration parameters that are currently available, but as said above, all of them are entirely optional:
 
 | Parameter | Description | Default value |
 | -------- | -------- | -------- |
@@ -68,6 +106,6 @@ Here are all the configuration parameters that are currently available, as said 
 
 Dodoc integrates a super cool template engine called [SquirrellyJS](https://github.com/squirrellyjs/squirrelly), allowing anyone to create new output formats easily.
 
-You can checkout the [default Markdown template](https://) to get some inspiration as well as [SquirrellyJS documentation](https://squirrelly.js.org/docs). Feel free to be creative, any kind of output such as Markdown, HTML or even JSON is supported!
+You can checkout the [default Markdown template](https://) to get some inspiration, as well as [SquirrellyJS documentation](https://squirrelly.js.org/docs) to learn more about it. Feel free to be creative, any kind of output such as Markdown, HTML or even JSON is supported!
 
-Once you're satisfied, simply refer to your template using the `templatePath` in your configuration and Dodoc will use it to output the documentation!
+Once you're satisfied, simply refer to your template using the `templatePath` parameter in your configuration and Dodoc will use it to output the documentation!
