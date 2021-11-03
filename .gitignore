@@ -4,6 +4,7 @@
 /flatten
 .vscode
 /dist
+.npmrc
 
 # Logs
 logs
