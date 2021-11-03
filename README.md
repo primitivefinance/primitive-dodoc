@@ -4,6 +4,7 @@ Zero-config Hardhat plugin to generate documentation for all your Solidity contr
 
 - 🤪 Zero-configuration required
 - ✅ Compatible with latest Solidity versions
+- 🔍 Supports events, errors and external / public functions
 - 📖 Default output to Markdown
 - 🔧 Extendable using custom templates
 
@@ -33,7 +34,7 @@ And you're done! Documentation will be automatically generated on the next compi
 
 ## 📝 Usage
 
-The only thing you have to do is to comment your Solidity contracts using [NatSpec](https://docs.soliditylang.org/en/v0.8.9/natspec-format.html) format, more or less like this:
+The only thing you have to do is to comment your Solidity contracts using [NatSpec](https://docs.soliditylang.org/en/v0.8.9/natspec-format.html) format. For example, given the following function:
 
 ```solidity
 /// @notice Does another thing when the function is called.
@@ -68,6 +69,8 @@ Dodoc will take care of everything and will generate the following output:
 > | Name | Type | Description |
 > |---|---|---|
 > | _0 | uint256 | A random variable
+
+Dodoc is compatible with all the NatSpec tags (except custom ones), and can generate documentation for all the events, custom errors and all the external / public functions.
 
 ## 🔧 Config
 
@@ -109,3 +112,10 @@ Dodoc integrates a super cool template engine called [SquirrellyJS](https://gith
 You can checkout the [default Markdown template](https://) to get some inspiration, as well as [SquirrellyJS documentation](https://squirrelly.js.org/docs) to learn more about it. Feel free to be creative, any kind of output such as Markdown, HTML or even JSON is supported!
 
 Once you're satisfied, simply refer to your template using the `templatePath` parameter in your configuration and Dodoc will use it to output the documentation!
+
+## ⛑ Help
+
+Feel free to open an issue if you need help or if you encounter a problem! Here are some already known problems though:
+- Due to some technical limitations, the documentation of `private` and `internal` functions is not rendered
+- Functions that are not commented at all might not be rendered either
+- Special functions such as `constructor`, `fallback` and `receive` might not be rendered
