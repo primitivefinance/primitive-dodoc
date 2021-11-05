@@ -1,7 +1,8 @@
 {
-  "name": "hardhat-dodoc",
-  "version": "0.0.1",
-  "description": "Documentation generator plugin for Hardhat",
+  "name": "@primitivefinance/hardhat-dodoc",
+  "version": "0.1.0",
+  "description": "Zero-config Hardhat plugin to generate documentation for all your Solidity contracts",
+  "repository": "github:primitivefinance/primitive-dodoc",
   "author": "Primitive",
   "license": "MIT",
   "main": "dist/src/index.js",
@@ -11,7 +12,8 @@
     "smart-contracts",
     "solidity",
     "hardhat",
-    "hardhat-plugin"
+    "hardhat-plugin",
+    "natspec"
   ],
   "scripts": {
     "build": "tsc",
