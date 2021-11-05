@@ -3,13 +3,14 @@
 Zero-config Hardhat plugin to generate documentation for all your Solidity contracts.
 
 - 🤪 Zero-configuration required
-- ✅ Compatible with Solidity >= 0.7.0
+- ✅ Compatible with latest Solidity versions
+- 🔍 Supports events, errors and external / public functions
 - 📖 Default output to Markdown
 - 🔧 Extendable using custom templates
 
 ## 📦 Installation
 
-First thing to do is to install the plugin:
+First thing to do is to install the plugin in your Hardhat project:
 
 ```bash
 # Using yarn
@@ -23,13 +24,53 @@ Next step is simply to include the plugin into your `hardhat.config.js` or `hard
 
 ```typescript
 // Using JavaScript
-require('primitivefinance/dodoc');
+require('@primitivefinance/dodoc');
 
 // Using ES6 or TypeScript
-import 'primitivefinance/dodoc';
+import '@primitivefinance/dodoc';
 ```
 
-And you're done! Now you just need to run `npx hardhat compile` to generate the documentation for all your contracts.
+And you're done! Documentation will be automatically generated on the next compilation.
+
+## 📝 Usage
+
+The only thing you have to do is to comment your Solidity contracts using [NatSpec](https://docs.soliditylang.org/en/v0.8.9/natspec-format.html) format. For example, given the following function:
+
+```solidity
+/// @notice Does another thing when the function is called.
+/// @dev More info about doing another thing when the function is called.
+/// @param num A random number
+/// @return A random variable
+function anotherThing(uint256 num) external pure returns (uint256);
+```
+
+Dodoc will take care of everything and will generate the following output:
+
+> ## Methods
+>
+> ### anotherThing
+>
+> ```solidity
+> function anotherThing(uint256 num) external pure returns (uint256)
+> ```
+>
+> Does another thing when the function is called.
+>
+> *More info about doing another thing when the function is called.*
+>
+> #### Parameters
+>
+> | Name | Type | Description |
+> |---|---|---|
+> | num | uint256 | A random number
+>
+> #### Returns
+>
+> | Name | Type | Description |
+> |---|---|---|
+> | _0 | uint256 | A random variable
+
+Dodoc is compatible with all the NatSpec tags (except custom ones), and can generate documentation for all the events, custom errors and all the external / public functions.
 
 ## 🔧 Config
 
@@ -44,6 +85,7 @@ import '@primitivefinance-dodoc';
 const config: HardhatUserConfig = {
   solidity: '0.8.9',
   dodoc: {
+    // Put your configuration here
     runOnCompile: true,
     testMode: true,
   },
@@ -52,11 +94,11 @@ const config: HardhatUserConfig = {
 export default config;
 ```
 
-Here are all the configuration parameters (don't forget that all of them are entirely optional):
+Here are all the configuration parameters that are currently available, but as said above, all of them are entirely optional:
 
 | Parameter | Description | Default value |
 | -------- | -------- | -------- |
-| `runOnCompile`     | True if the plugin should generate the documentation on compilation | `true`     |
+| `runOnCompile`     | True if the plugin should generate the documentation on every compilation | `true`     |
 | `include` | List of all the contract names to include in the documentation generation. An empty array will generate documentation for all the contracts | `[]` |
 | `exclude` | List of all the contract names to exclude from the documentation generation | `[]` |
 | `outputDir` | Output directory of the documentation | `docs` |
@@ -67,4 +109,13 @@ Here are all the configuration parameters (don't forget that all of them are ent
 
 Dodoc integrates a super cool template engine called [SquirrellyJS](https://github.com/squirrellyjs/squirrelly), allowing anyone to create new output formats easily.
 
-You can checkout the default Markdown template [here](https://) to get some inspiration. Once you're done with yours, simply refer it using the `templatePath` in your configuration.
+You can checkout the [default Markdown template](https://) to get some inspiration, as well as [SquirrellyJS documentation](https://squirrelly.js.org/docs) to learn more about it. Feel free to be creative, any kind of output such as Markdown, HTML or even JSON is supported!
+
+Once you're satisfied, simply refer to your template using the `templatePath` parameter in your configuration and Dodoc will use it to output the documentation!
+
+## ⛑ Help
+
+Feel free to open an issue if you need help or if you encounter a problem! Here are some already known problems though:
+- Due to some technical limitations, the documentation of `private` and `internal` functions is not rendered
+- Functions that are not commented at all might not be rendered either
+- Special functions such as `constructor`, `fallback` and `receive` might not be rendered
