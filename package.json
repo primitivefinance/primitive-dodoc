@@ -17,8 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "publish": "npm publish"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "LICENSE",
