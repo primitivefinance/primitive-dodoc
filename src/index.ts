@@ -73,7 +73,7 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
     runOnCompile: userConfig.dodoc?.runOnCompile || true,
     testMode: userConfig.dodoc?.testMode || false,
     outputDir: userConfig.dodoc?.outputDir || './docs',
-    templatePath: userConfig.dodoc?.templatePath || './src/template.sqrl',
+    templatePath: userConfig.dodoc?.templatePath || path.join(__dirname, './template.sqrl'),
   };
 });
 
