@@ -13,7 +13,7 @@
 {{@if (it.details)}}*{{it.details}}*{{/if}}
 
 
-{{@if (it.methods)}}
+{{@if (Object.keys(it.methods).length > 0)}}
 ## Methods
 
 {{@foreach(it.methods) => key, val}}
@@ -31,32 +31,33 @@
 {{@if (val.details)}}*{{val.details}}*{{/if}}
 
 
-{{@if (val.params)}}
+{{@if (Object.keys(val.inputs).length > 0)}}
 #### Parameters
 
 | Name | Type | Description |
 |---|---|---|
-{{@foreach(val.params) => key, val}}
+{{@foreach(val.inputs) => key, val}}
 | {{key}} | {{val.type}} | {{val.description}}
 
 {{/foreach}}
 {{/if}}
 
-{{@if (val.returns)}}
+{{@if (Object.keys(val.outputs).length > 0)}}
 #### Returns
 
 | Name | Type | Description |
 |---|---|---|
-{{@foreach(val.returns) => key, val}}
+{{@foreach(val.outputs) => key, val}}
 | {{key}} | {{val.type}} | {{val.description}}
 
 {{/foreach}}
 
 {{/if}}
 {{/foreach}}
+
 {{/if}}
 
-{{@if (it.events)}}
+{{@if (Object.keys(it.events).length > 0)}}
 ## Events
 
 {{@foreach(it.events) => key, val}}
@@ -74,21 +75,22 @@
 {{@if (val.details)}}*{{val.details}}*{{/if}}
 
 
-{{@if (val.params)}}
+{{@if (Object.keys(val.inputs).length > 0)}}
 #### Parameters
 
 | Name | Type | Description |
 |---|---|---|
-{{@foreach(val.params) => key, val}}
+{{@foreach(val.inputs) => key, val}}
 | {{key}} {{@if (val.indexed)}}`indexed`{{/if}} | {{val.type}} | {{val.description}} |
 {{/foreach}}
 {{/if}}
 
 {{/foreach}}
+
 {{/if}}
 
-{{@if (it.errors)}}
-## Errors
+{{@if (Object.keys(it.errors).length > 0)}}
+## Events
 
 {{@foreach(it.errors) => key, val}}
 ### {{key}}
@@ -105,15 +107,16 @@
 {{@if (val.details)}}*{{val.details}}*{{/if}}
 
 
-{{@if (val.params)}}
+{{@if (Object.keys(val.inputs).length > 0)}}
 #### Parameters
 
 | Name | Type | Description |
 |---|---|---|
-{{@foreach(val.params) => key, val}}
+{{@foreach(val.inputs) => key, val}}
 | {{key}} | {{val.type}} | {{val.description}} |
 {{/foreach}}
 {{/if}}
 
 {{/foreach}}
+
 {{/if}}
