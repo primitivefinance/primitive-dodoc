@@ -3,10 +3,12 @@
 Zero-config Hardhat plugin to generate documentation for all your Solidity contracts.
 
 - 🤪 Zero-configuration required
-- ✅ Compatible with latest Solidity versions
+- ✅ Compatible with latest Solidity versions (>= 0.8.0)
 - 🔍 Supports events, errors and external / public functions
 - 📖 Default output to Markdown
 - 🔧 Extendable using custom templates
+
+Want to see a live example? Check out [Primitive documentation](https://docs.primitive.finance/)!
 
 ## 📦 Installation
 
@@ -14,10 +16,10 @@ First thing to do is to install the plugin in your Hardhat project:
 
 ```bash
 # Using yarn
-yarn add @primitivefinance/dodoc
+yarn add @primitivefi/hardhat-dodoc
 
 # Or using npm
-npm i @primitivefinance/dodoc
+npm i @primitivefi/hardhat-dodoc
 ```
 
 Next step is simply to include the plugin into your `hardhat.config.js` or `hardhat.config.ts` file:
@@ -30,11 +32,11 @@ require('@primitivefinance/dodoc');
 import '@primitivefinance/dodoc';
 ```
 
-And you're done! Documentation will be automatically generated on the next compilation.
+And you're done! Documentation will be automatically generated on the next compilation and saved into the `docs` folder at the root of your project.
 
 ## 📝 Usage
 
-The only thing you have to do is to comment your Solidity contracts using [NatSpec](https://docs.soliditylang.org/en/v0.8.9/natspec-format.html) format. For example, given the following function:
+The only requirement to use Dodoc is to comment your Solidity contracts using [NatSpec](https://docs.soliditylang.org/en/v0.8.9/natspec-format.html) format. For example, given the following function:
 
 ```solidity
 /// @notice Does another thing when the function is called.
@@ -70,7 +72,7 @@ Dodoc will take care of everything and will generate the following output:
 > |---|---|---|
 > | _0 | uint256 | A random variable
 
-Dodoc is compatible with all the NatSpec tags (except custom ones), and can generate documentation for all the events, custom errors and all the external / public functions.
+Dodoc is compatible with all the NatSpec tags (except custom ones), and can generate documentation for events, custom errors and external / public functions.
 
 ## 🔧 Config
 
@@ -83,11 +85,11 @@ import '@nomiclabs/hardhat-ethers';
 import '@primitivefinance-dodoc';
 
 const config: HardhatUserConfig = {
-  solidity: '0.8.9',
+  // Your Hardhat config...
   dodoc: {
-    // Put your configuration here
     runOnCompile: true,
     testMode: true,
+    // More options...
   },
 };
 
@@ -99,8 +101,8 @@ Here are all the configuration parameters that are currently available, but as s
 | Parameter | Description | Default value |
 | -------- | -------- | -------- |
 | `runOnCompile`     | True if the plugin should generate the documentation on every compilation | `true`     |
-| `include` | List of all the contract names to include in the documentation generation. An empty array will generate documentation for all the contracts | `[]` |
-| `exclude` | List of all the contract names to exclude from the documentation generation | `[]` |
+| `include` | List of all the contract / interface / library names to include in the documentation generation. An empty array will generate documentation for everything | `[]` |
+| `exclude` | List of all the contract / interface / library names to exclude from the documentation generation | `[]` |
 | `outputDir` | Output directory of the documentation | `docs` |
 | `templatePath` | Path to the documentation template | `./template.sqrl`|
 | `testMode` | Test mode generating additional JSON files used for debugging | `false` |
@@ -109,13 +111,14 @@ Here are all the configuration parameters that are currently available, but as s
 
 Dodoc integrates a super cool template engine called [SquirrellyJS](https://github.com/squirrellyjs/squirrelly), allowing anyone to create new output formats easily.
 
-You can checkout the [default Markdown template](https://) to get some inspiration, as well as [SquirrellyJS documentation](https://squirrelly.js.org/docs) to learn more about it. Feel free to be creative, any kind of output such as Markdown, HTML or even JSON is supported!
+You can checkout the [default Markdown template](https://) to get some inspiration, as well as [SquirrellyJS documentation](https://squirrelly.js.org/docs) to learn more about it. Feel free to be creative, any kind of output such as Markdown, MDX, HTML or even JSON is supported!
 
 Once you're satisfied, simply refer to your template using the `templatePath` parameter in your configuration and Dodoc will use it to output the documentation!
 
 ## ⛑ Help
 
 Feel free to open an issue if you need help or if you encounter a problem! Here are some already known problems though:
-- Due to some technical limitations, the documentation of `private` and `internal` functions is not rendered
-- Functions that are not commented at all might not be rendered either
-- Special functions such as `constructor`, `fallback` and `receive` might not be rendered
+- Due to the technical limitations of the Solidity compiler, the documentation of `private` and `internal` functions is not rendered. Hence, the documentation of libraries might be close to empty!
+- Functions that are not commented at all might not be rendered.
+- Special functions such as `constructor`, `fallback` and `receive` might not be rendered.
+- Custom NatSpec tags `@custom:...` are not rendered (yet).
