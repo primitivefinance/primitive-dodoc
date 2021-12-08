@@ -1,0 +1,144 @@
+---
+description: {{@if (it.title)}}{{it.title}}{{/if}}
+
+---
+
+{{@if (it.name)}}# {{it.name}}.sol{{/if}}
+
+
+{{@if (it.notice)}}{{it.notice}}{{/if}}
+
+
+{{@if (it.details)}}
+:::note Details
+{{it.details}}
+
+:::
+{{/if}}
+
+
+{{@if (Object.keys(it.methods).length > 0)}}
+## Methods
+
+{{@foreach(it.methods) => key, val}}
+### {{key}}
+
+
+{{@if (val.notice)}}{{val.notice}}{{/if}}
+
+
+```solidity title="Solidity"
+{{val.code}}
+
+```
+
+
+{{@if (val.details)}}
+:::note Details
+{{val.details}}
+
+:::
+{{/if}}
+
+
+{{@if (Object.keys(val.inputs).length > 0)}}
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+{{@foreach(val.inputs) => key, val}}
+| {{key}} | {{val.type}} | {{val.description}}
+
+{{/foreach}}
+{{/if}}
+
+{{@if (Object.keys(val.outputs).length > 0)}}
+#### Returns
+
+| Name | Type | Description |
+|---|---|---|
+{{@foreach(val.outputs) => key, val}}
+| {{key}} | {{val.type}} | {{val.description}}
+
+{{/foreach}}
+
+{{/if}}
+{{/foreach}}
+
+{{/if}}
+
+{{@if (Object.keys(it.events).length > 0)}}
+## Events
+
+{{@foreach(it.events) => key, val}}
+### {{key}}
+
+
+{{@if (val.notice)}}{{val.notice}}{{/if}}
+
+
+```solidity title="Solidity"
+{{val.code}}
+
+```
+
+
+{{@if (val.details)}}
+:::note Details
+{{val.details}}
+
+:::
+{{/if}}
+
+
+{{@if (Object.keys(val.inputs).length > 0)}}
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+{{@foreach(val.inputs) => key, val}}
+| {{key}} {{@if (val.indexed)}}`indexed`{{/if}} | {{val.type}} | {{val.description}} |
+{{/foreach}}
+{{/if}}
+
+{{/foreach}}
+
+{{/if}}
+
+{{@if (Object.keys(it.errors).length > 0)}}
+## Events
+
+{{@foreach(it.errors) => key, val}}
+### {{key}}
+
+
+{{@if (val.notice)}}{{val.notice}}{{/if}}
+
+
+```solidity title="Solidity"
+{{val.code}}
+
+```
+
+
+{{@if (val.details)}}
+:::note Details
+{{val.details}}
+
+:::
+{{/if}}
+
+
+{{@if (Object.keys(val.inputs).length > 0)}}
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+{{@foreach(val.inputs) => key, val}}
+| {{key}} | {{val.type}} | {{val.description}} |
+{{/foreach}}
+{{/if}}
+
+{{/foreach}}
+
+{{/if}}
