@@ -1,16 +1,20 @@
-{{@if (it.name)}}# {{it.name}}{{/if}}
+---
+description: {{@if (it.title)}}{{it.title}}{{/if}}
 
+---
 
-{{@if (it.author)}}*{{it.author}}*{{/if}}
-
-
-{{@if (it.title)}}> {{it.title}}{{/if}}
+{{@if (it.name)}}# {{it.name}}.sol{{/if}}
 
 
 {{@if (it.notice)}}{{it.notice}}{{/if}}
 
 
-{{@if (it.details)}}*{{it.details}}*{{/if}}
+{{@if (it.details)}}
+:::note Details
+{{it.details}}
+
+:::
+{{/if}}
 
 
 {{@if (Object.keys(it.methods).length > 0)}}
@@ -20,15 +24,21 @@
 ### {{key}}
 
 
-```solidity
+{{@if (val.notice)}}{{val.notice}}{{/if}}
+
+
+```solidity title="Solidity"
 {{val.code}}
 
 ```
 
-{{@if (val.notice)}}{{val.notice}}{{/if}}
 
+{{@if (val.details)}}
+:::note Details
+{{val.details}}
 
-{{@if (val.details)}}*{{val.details}}*{{/if}}
+:::
+{{/if}}
 
 
 {{@if (Object.keys(val.inputs).length > 0)}}
@@ -64,15 +74,21 @@
 ### {{key}}
 
 
-```solidity
+{{@if (val.notice)}}{{val.notice}}{{/if}}
+
+
+```solidity title="Solidity"
 {{val.code}}
 
 ```
 
-{{@if (val.notice)}}{{val.notice}}{{/if}}
 
+{{@if (val.details)}}
+:::note Details
+{{val.details}}
 
-{{@if (val.details)}}*{{val.details}}*{{/if}}
+:::
+{{/if}}
 
 
 {{@if (Object.keys(val.inputs).length > 0)}}
@@ -96,15 +112,21 @@
 ### {{key}}
 
 
-```solidity
+{{@if (val.notice)}}{{val.notice}}{{/if}}
+
+
+```solidity title="Solidity"
 {{val.code}}
 
 ```
 
-{{@if (val.notice)}}{{val.notice}}{{/if}}
 
+{{@if (val.details)}}
+:::note Details
+{{val.details}}
 
-{{@if (val.details)}}*{{val.details}}*{{/if}}
+:::
+{{/if}}
 
 
 {{@if (Object.keys(val.inputs).length > 0)}}

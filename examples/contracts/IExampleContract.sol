@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
-pragma solidity 0.8.9;
+pragma solidity >=0.8.6;
 
 /// @title Interface of our ExampleContract
 /// @author 0xAn0n
