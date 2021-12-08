@@ -1,0 +1,107 @@
+{
+    "methods": {
+        "anotherThing": {
+            "stateMutability": "pure",
+            "code": "function anotherThing(uint256 num) external pure returns (uint256)",
+            "inputs": {
+                "num": {
+                    "type": "uint256",
+                    "description": "A random number"
+                }
+            },
+            "outputs": {
+                "_0": {
+                    "type": "uint256",
+                    "description": "A random variable"
+                }
+            },
+            "notice": "Does another thing when the function is called.",
+            "details": "More info about doing another thing when the function is called."
+        },
+        "boop": {
+            "stateMutability": "view",
+            "code": "function boop() external view returns (address)",
+            "inputs": {},
+            "outputs": {
+                "_0": {
+                    "type": "address"
+                }
+            },
+            "notice": "Poorly documented function starting with weird spaces."
+        },
+        "doSomething": {
+            "stateMutability": "nonpayable",
+            "code": "function doSomething(address a, uint256 b) external nonpayable returns (uint256 foo, uint256 bar)",
+            "inputs": {
+                "a": {
+                    "type": "address",
+                    "description": "Address to do something"
+                },
+                "b": {
+                    "type": "uint256",
+                    "description": "Number to do something"
+                }
+            },
+            "outputs": {
+                "foo": {
+                    "type": "uint256",
+                    "description": "First return variable"
+                },
+                "bar": {
+                    "type": "uint256",
+                    "description": "Second return variable"
+                }
+            },
+            "notice": "Does something when this function is called.",
+            "details": "More info about the doSomething, and this even works when the explanation is on two lines."
+        },
+        "pay": {
+            "stateMutability": "payable",
+            "code": "function pay() external payable",
+            "inputs": {},
+            "outputs": {},
+            "notice": "A bad documented payable function."
+        }
+    },
+    "events": {
+        "DoSomething": {
+            "code": "event DoSomething(address indexed a, uint256 b)",
+            "inputs": {
+                "a": {
+                    "type": "address",
+                    "indexed": true,
+                    "description": "Address of someone"
+                },
+                "b": {
+                    "type": "uint256",
+                    "indexed": false,
+                    "description": "A random number"
+                }
+            },
+            "notice": "Emitted when the function doSomething is called.",
+            "details": "More info about the event can be added here."
+        }
+    },
+    "errors": {
+        "RandomError": {
+            "code": "error RandomError(address expected, address actual)",
+            "inputs": {
+                "expected": {
+                    "type": "address",
+                    "description": "Expected address"
+                },
+                "actual": {
+                    "type": "address",
+                    "description": "Actual address"
+                }
+            },
+            "notice": "Thrown when an error happens.",
+            "details": "More info about the error."
+        }
+    },
+    "title": "Interface of our ExampleContract",
+    "notice": "Put a simple description of the contract here.",
+    "details": "And then a more complicated and tech oriented description of the contract there.",
+    "author": "0xAn0n",
+    "name": "IExampleContract"
+}

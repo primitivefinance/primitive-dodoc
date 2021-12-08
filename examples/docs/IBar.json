@@ -1,0 +1,55 @@
+{
+    "methods": {
+        "boop": {
+            "stateMutability": "nonpayable",
+            "code": "function boop(uint256 bar) external nonpayable",
+            "inputs": {
+                "bar": {
+                    "type": "uint256"
+                }
+            },
+            "outputs": {}
+        },
+        "set": {
+            "stateMutability": "nonpayable",
+            "code": "function set(IBar.T t) external nonpayable",
+            "inputs": {
+                "t": {
+                    "type": "IBar.T",
+                    "description": "T struct FTW"
+                }
+            },
+            "outputs": {},
+            "notice": "Sets a T",
+            "details": "Uses a struct"
+        }
+    },
+    "events": {
+        "Transfer": {
+            "code": "event Transfer(uint256 foo)",
+            "inputs": {
+                "foo": {
+                    "type": "uint256",
+                    "indexed": false,
+                    "description": "Amount of stuff"
+                }
+            },
+            "notice": "Emitted when transfer",
+            "details": "Transfer some stuff"
+        }
+    },
+    "errors": {
+        "Doh": {
+            "code": "error Doh(bool yay)",
+            "inputs": {
+                "yay": {
+                    "type": "bool",
+                    "description": "A bool"
+                }
+            },
+            "notice": "Thrown when doh",
+            "details": "Bad doh error"
+        }
+    },
+    "name": "IBar"
+}

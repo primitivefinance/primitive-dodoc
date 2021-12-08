@@ -32,6 +32,23 @@ Does another thing when the function is called.
 |---|---|---|
 | _0 | uint256 | A random variable
 
+### boop
+
+```solidity
+function boop() external view returns (address)
+```
+
+Poorly documented function starting with weird spaces.
+
+
+
+
+#### Returns
+
+| Name | Type | Description |
+|---|---|---|
+| _0 | address | undefined
+
 ### doSomething
 
 ```solidity
@@ -53,25 +70,8 @@ Does something when this function is called.
 
 | Name | Type | Description |
 |---|---|---|
-| bar | uint256 | Second return variable
 | foo | uint256 | First return variable
-
-### boop
-
-```solidity
-function boop() external view returns (address)
-```
-
-Poorly documented function starting with weird spaces.
-
-
-
-
-#### Returns
-
-| Name | Type | Description |
-|---|---|---|
-| _0 | address | 
+| bar | uint256 | Second return variable
 
 ### pay
 
@@ -80,6 +80,7 @@ function pay() external payable
 ```
 
 A bad documented payable function.
+
 
 
 
@@ -105,7 +106,8 @@ Emitted when the function doSomething is called.
 | b  | uint256 | A random number |
 
 
-## Errors
+
+## Events
 
 ### RandomError
 
@@ -121,6 +123,7 @@ Thrown when an error happens.
 
 | Name | Type | Description |
 |---|---|---|
-| actual | address | Actual address |
 | expected | address | Expected address |
+| actual | address | Actual address |
+
 
