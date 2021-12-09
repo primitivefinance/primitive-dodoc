@@ -26,10 +26,10 @@ Next step is simply to include the plugin into your `hardhat.config.js` or `hard
 
 ```typescript
 // Using JavaScript
-require('@primitivefinance/dodoc');
+require('@primitivefi/hardhat-dodoc');
 
 // Using ES6 or TypeScript
-import '@primitivefinance/dodoc';
+import '@primitivefi/hardhat-dodoc';
 ```
 
 And you're done! Documentation will be automatically generated on the next compilation and saved into the `docs` folder at the root of your project.
