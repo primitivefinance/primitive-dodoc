@@ -26,10 +26,10 @@ Next step is simply to include the plugin into your `hardhat.config.js` or `hard
 
 ```typescript
 // Using JavaScript
-require('@primitivefinance/dodoc');
+require('@primitivefi/hardhat-dodoc');
 
 // Using ES6 or TypeScript
-import '@primitivefinance/dodoc';
+import '@primitivefi/hardhat-dodoc';
 ```
 
 And you're done! Documentation will be automatically generated on the next compilation and saved into the `docs` folder at the root of your project.
@@ -120,6 +120,6 @@ Once you're satisfied, simply refer to your template using the `templatePath` pa
 Feel free to open an issue if you need help or if you encounter a problem! Here are some already known problems though:
 - Due to the technical limitations of the Solidity compiler, the documentation of `private` and `internal` functions is not rendered. Hence, the documentation of libraries might be close to empty!
 - Functions that are not commented at all might not be rendered.
-- State variables overriding functions defined by an interface might "erase" the name of the parameters. A current workaround is to name the function parameters using the `_01`, `_02`, ... format.
+- State variables overriding functions defined by an interface might "erase" the name of the parameters. A current workaround is to name the function parameters using the `_0`, `_1`, ... format.
 - Special functions such as `constructor`, `fallback` and `receive` might not be rendered.
 - Custom NatSpec tags `@custom:...` are not rendered (yet).
