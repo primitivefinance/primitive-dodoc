@@ -20,7 +20,7 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
   config.dodoc = {
     include: userConfig.dodoc?.include || [],
     exclude: userConfig.dodoc?.exclude || [],
-    runOnCompile: userConfig.dodoc?.runOnCompile || true,
+    runOnCompile: userConfig.dodoc?.runOnCompile !== undefined ? userConfig.dodoc?.runOnCompile : true,
     testMode: userConfig.dodoc?.testMode || false,
     outputDir: userConfig.dodoc?.outputDir || './docs',
     templatePath: userConfig.dodoc?.templatePath || path.join(__dirname, './template.sqrl'),
