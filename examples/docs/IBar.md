@@ -64,7 +64,7 @@ Emitted when transfer
 
 
 
-## Events
+## Errors
 
 ### Doh
 

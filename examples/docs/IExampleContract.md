@@ -107,7 +107,7 @@ Emitted when the function doSomething is called.
 
 
 
-## Events
+## Errors
 
 ### RandomError
 
