@@ -90,7 +90,7 @@
 {{/if}}
 
 {{@if (Object.keys(it.errors).length > 0)}}
-## Events
+## Errors
 
 {{@foreach(it.errors) => key, val}}
 ### {{key}}
