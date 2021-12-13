@@ -1,5 +1,7 @@
 # Dodoc
 
+![version](https://img.shields.io/npm/v/@primitivefi/hardhat-dodoc) ![npm](https://img.shields.io/npm/dt/@primitivefi/hardhat-dodoc) ![license](https://img.shields.io/npm/l/@primitivefi/hardhat-dodoc)
+
 Zero-config Hardhat plugin to generate documentation for all your Solidity contracts.
 
 - 🤪 Zero-configuration required
@@ -82,7 +84,7 @@ Dodoc comes with a default configuration but you can still tweak some parameters
 import { HardhatUserConfig } from 'hardhat/config';
 import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-ethers';
-import '@primitivefinance-dodoc';
+import '@primitivefi/hardhat-dodoc';
 
 const config: HardhatUserConfig = {
   // Your Hardhat config...
