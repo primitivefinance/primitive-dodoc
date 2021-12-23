@@ -12,4 +12,23 @@ interface IFoo {
 contract Foo is IFoo {
     /// @inheritdoc IFoo
     mapping(address => uint256) public override nonces;
+
+
+    /**
+     * Removes all objects after and including a given index.
+     * @param a Object index to delete from.
+     */
+    function doThing(address a)public{
+
+    }
+
+    /**
+     * Removes all objects after and including a given index. Also allows setting the global
+     * metadata field.
+     * @param a Object index to delete from.
+     * @param b New global metadata for the container.
+     */
+    function doThing(address a, uint b) public {
+
+    }
 }

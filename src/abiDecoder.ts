@@ -1,9 +1,5 @@
 import {
-  AbiElement,
-  Doc,
-  Method,
-  Error,
-  Event,
+  AbiElement, Doc, Method, Error, Event,
 } from './dodocTypes';
 
 export function getCodeFromAbi(element: AbiElement): string {
@@ -115,7 +111,9 @@ export function decodeAbi(abi: AbiElement[]): Doc {
         };
       });
 
-      doc.methods[el.name] = func;
+      doc.methods[`${el.name}(${
+        el.inputs ? el.inputs.map((inp) => inp.type).join(',') : ''
+      })`] = func;
     }
 
     if (el.type === 'event') {

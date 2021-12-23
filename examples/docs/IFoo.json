@@ -1,6 +1,6 @@
 {
     "methods": {
-        "nonces": {
+        "nonces(address)": {
             "stateMutability": "view",
             "code": "function nonces(address _0) external view returns (uint256)",
             "inputs": {

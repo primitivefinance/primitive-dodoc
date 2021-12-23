@@ -1,6 +1,34 @@
 {
     "methods": {
-        "nonces": {
+        "doThing(address)": {
+            "stateMutability": "nonpayable",
+            "code": "function doThing(address a) external nonpayable",
+            "inputs": {
+                "a": {
+                    "type": "address",
+                    "description": "Object index to delete from."
+                }
+            },
+            "outputs": {},
+            "notice": "Removes all objects after and including a given index."
+        },
+        "doThing(address,uint256)": {
+            "stateMutability": "nonpayable",
+            "code": "function doThing(address a, uint256 b) external nonpayable",
+            "inputs": {
+                "a": {
+                    "type": "address",
+                    "description": "Object index to delete from."
+                },
+                "b": {
+                    "type": "uint256",
+                    "description": "New global metadata for the container."
+                }
+            },
+            "outputs": {},
+            "notice": "Removes all objects after and including a given index. Also allows setting the global metadata field."
+        },
+        "nonces(address)": {
             "stateMutability": "view",
             "code": "function nonces(address) external view returns (uint256)",
             "inputs": {

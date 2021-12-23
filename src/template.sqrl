@@ -17,7 +17,7 @@
 ## Methods
 
 {{@foreach(it.methods) => key, val}}
-### {{key}}
+### {{key.split('(')[0]}}
 
 
 ```solidity

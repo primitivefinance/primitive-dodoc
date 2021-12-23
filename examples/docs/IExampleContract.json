@@ -1,6 +1,6 @@
 {
     "methods": {
-        "anotherThing": {
+        "anotherThing(uint256)": {
             "stateMutability": "pure",
             "code": "function anotherThing(uint256 num) external pure returns (uint256)",
             "inputs": {
@@ -18,7 +18,7 @@
             "notice": "Does another thing when the function is called.",
             "details": "More info about doing another thing when the function is called."
         },
-        "boop": {
+        "boop()": {
             "stateMutability": "view",
             "code": "function boop() external view returns (address)",
             "inputs": {},
@@ -29,7 +29,7 @@
             },
             "notice": "Poorly documented function starting with weird spaces."
         },
-        "doSomething": {
+        "doSomething(address,uint256)": {
             "stateMutability": "nonpayable",
             "code": "function doSomething(address a, uint256 b) external nonpayable returns (uint256 foo, uint256 bar)",
             "inputs": {
@@ -55,7 +55,7 @@
             "notice": "Does something when this function is called.",
             "details": "More info about the doSomething, and this even works when the explanation is on two lines."
         },
-        "pay": {
+        "pay()": {
             "stateMutability": "payable",
             "code": "function pay() external payable",
             "inputs": {},

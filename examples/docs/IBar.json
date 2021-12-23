@@ -1,6 +1,6 @@
 {
     "methods": {
-        "boop": {
+        "boop(uint256)": {
             "stateMutability": "nonpayable",
             "code": "function boop(uint256 bar) external nonpayable",
             "inputs": {
@@ -10,18 +10,15 @@
             },
             "outputs": {}
         },
-        "set": {
+        "set(tuple)": {
             "stateMutability": "nonpayable",
             "code": "function set(IBar.T t) external nonpayable",
             "inputs": {
                 "t": {
-                    "type": "IBar.T",
-                    "description": "T struct FTW"
+                    "type": "IBar.T"
                 }
             },
-            "outputs": {},
-            "notice": "Sets a T",
-            "details": "Uses a struct"
+            "outputs": {}
         }
     },
     "events": {
