@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "compile": "hardhat compile",
     "prepublishOnly": "npm run build"
   },
   "files": [
