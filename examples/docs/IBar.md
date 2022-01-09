@@ -10,7 +10,8 @@
 
 ## Methods
 
-### boop
+### `boop`
+
 
 ```solidity
 function boop(uint256 bar) external nonpayable
@@ -24,9 +25,10 @@ function boop(uint256 bar) external nonpayable
 
 | Name | Type | Description |
 |---|---|---|
-| bar | uint256 | undefined
+| `bar` | `uint256` | undefined
 
-### set
+### `set`
+
 
 ```solidity
 function set(IBar.T t) external nonpayable
@@ -40,13 +42,14 @@ Sets a T
 
 | Name | Type | Description |
 |---|---|---|
-| t | IBar.T | T struct FTW
+| `t` | `IBar.T` | T struct FTW
 
 
 
 ## Events
 
-### Transfer
+### `Transfer`
+
 
 ```solidity
 event Transfer(uint256 foo)
@@ -60,13 +63,14 @@ Emitted when transfer
 
 | Name | Type | Description |
 |---|---|---|
-| foo  | uint256 | Amount of stuff |
+| `foo`  | `uint256` | Amount of stuff |
 
 
 
 ## Errors
 
-### Doh
+### `Doh`
+
 
 ```solidity
 error Doh(bool yay)
@@ -80,6 +84,6 @@ Thrown when doh
 
 | Name | Type | Description |
 |---|---|---|
-| yay | bool | A bool |
+| `yay` | `bool` | A bool |
 
 

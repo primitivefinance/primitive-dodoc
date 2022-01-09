@@ -10,7 +10,8 @@ Put a simple description of the contract here.
 
 ## Methods
 
-### anotherThing
+### `anotherThing`
+
 
 ```solidity
 function anotherThing(uint256 num) external pure returns (uint256)
@@ -24,15 +25,16 @@ Does another thing when the function is called.
 
 | Name | Type | Description |
 |---|---|---|
-| num | uint256 | A random number
+| `num` | `uint256` | A random number
 
 #### Returns
 
 | Name | Type | Description |
 |---|---|---|
-| _0 | uint256 | A random variable
+| `_0` | `uint256` | A random variable
 
-### boop
+### `boop`
+
 
 ```solidity
 function boop() external view returns (address)
@@ -47,9 +49,10 @@ Poorly documented function starting with weird spaces.
 
 | Name | Type | Description |
 |---|---|---|
-| _0 | address | undefined
+| `_0` | `address` | undefined
 
-### doSomething
+### `doSomething`
+
 
 ```solidity
 function doSomething(address a, uint256 b) external nonpayable returns (uint256 foo, uint256 bar)
@@ -63,17 +66,18 @@ Does something when this function is called.
 
 | Name | Type | Description |
 |---|---|---|
-| a | address | Address to do something
-| b | uint256 | Number to do something
+| `a` | `address` | Address to do something
+| `b` | `uint256` | Number to do something
 
 #### Returns
 
 | Name | Type | Description |
 |---|---|---|
-| foo | uint256 | First return variable
-| bar | uint256 | Second return variable
+| `foo` | `uint256` | First return variable
+| `bar` | `uint256` | Second return variable
 
-### pay
+### `pay`
+
 
 ```solidity
 function pay() external payable
@@ -88,7 +92,8 @@ A bad documented payable function.
 
 ## Events
 
-### DoSomething
+### `DoSomething`
+
 
 ```solidity
 event DoSomething(address indexed a, uint256 b)
@@ -102,14 +107,15 @@ Emitted when the function doSomething is called.
 
 | Name | Type | Description |
 |---|---|---|
-| a `indexed` | address | Address of someone |
-| b  | uint256 | A random number |
+| `a` `indexed` | `address` | Address of someone |
+| `b`  | `uint256` | A random number |
 
 
 
 ## Errors
 
-### RandomError
+### `RandomError`
+
 
 ```solidity
 error RandomError(address expected, address actual)
@@ -123,7 +129,7 @@ Thrown when an error happens.
 
 | Name | Type | Description |
 |---|---|---|
-| expected | address | Expected address |
-| actual | address | Actual address |
+| `expected` | `address` | Expected address |
+| `actual` | `address` | Actual address |
 
 

@@ -17,7 +17,7 @@
 ## Methods
 
 {{@foreach(it.methods) => key, val}}
-### {{key}}
+### `{{key}}`
 
 
 ```solidity
@@ -37,7 +37,7 @@
 | Name | Type | Description |
 |---|---|---|
 {{@foreach(val.inputs) => key, val}}
-| {{key}} | {{val.type}} | {{val.description}}
+| `{{key}}` | `{{val.type}}` | {{val.description}}
 
 {{/foreach}}
 {{/if}}
@@ -48,7 +48,7 @@
 | Name | Type | Description |
 |---|---|---|
 {{@foreach(val.outputs) => key, val}}
-| {{key}} | {{val.type}} | {{val.description}}
+| `{{key}}` | `{{val.type}}` | {{val.description}}
 
 {{/foreach}}
 
@@ -61,7 +61,7 @@
 ## Events
 
 {{@foreach(it.events) => key, val}}
-### {{key}}
+### `{{key}}`
 
 
 ```solidity
@@ -81,7 +81,7 @@
 | Name | Type | Description |
 |---|---|---|
 {{@foreach(val.inputs) => key, val}}
-| {{key}} {{@if (val.indexed)}}`indexed`{{/if}} | {{val.type}} | {{val.description}} |
+| `{{key}}` {{@if (val.indexed)}}`indexed`{{/if}} | `{{val.type}}` | {{val.description}} |
 {{/foreach}}
 {{/if}}
 
@@ -93,7 +93,7 @@
 ## Errors
 
 {{@foreach(it.errors) => key, val}}
-### {{key}}
+### `{{key}}`
 
 
 ```solidity
@@ -113,7 +113,7 @@
 | Name | Type | Description |
 |---|---|---|
 {{@foreach(val.inputs) => key, val}}
-| {{key}} | {{val.type}} | {{val.description}} |
+| `{{key}}` | `{{val.type}}` | {{val.description}} |
 {{/foreach}}
 {{/if}}
 
