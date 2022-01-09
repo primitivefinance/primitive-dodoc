@@ -24,6 +24,7 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
     testMode: userConfig.dodoc?.testMode || false,
     outputDir: userConfig.dodoc?.outputDir || './docs',
     templatePath: userConfig.dodoc?.templatePath || path.join(__dirname, './template.sqrl'),
+    keepFileStructure: userConfig.dodoc?.keepFileStructure || true,
   };
 });
 
@@ -49,6 +50,7 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
   const qualifiedNames = await hre.artifacts.getAllFullyQualifiedNames();
 
   // Loops through all the qualified names to get all the compiled contracts
+  const sourcesPath = hre.config.paths.sources.substr(process.cwd().length + 1); // trick to get relative path to files, and trim the first /
   for (const qualifiedName of qualifiedNames) {
     const [source, name] = qualifiedName.split(':');
 
@@ -68,7 +70,7 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
         console.log(JSON.stringify(info.devdoc, null, 4));
       }
 
-      const doc = decodeAbi(info.abi);
+      const doc = { ...decodeAbi(info.abi), path: source.substr(sourcesPath.length).split('/').slice(0, -1).join('/') }; // remove filename
 
       // Fetches info from userdoc
       for (const errorSig in info.userdoc?.errors) {
@@ -169,9 +171,15 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
 
   for (let i = 0; i < docs.length; i += 1) {
     const result = Sqrl.render(template, docs[i]);
-
+    let docfileName = `${docs[i].name}.md`;
+    let testFileName = `${docs[i].name}.json`;
+    if (config.keepFileStructure && docs[i].path !== undefined && !fs.existsSync(path.join(config.outputDir, <string>docs[i].path))) {
+      await fs.promises.mkdir(path.join(config.outputDir, <string>docs[i].path), { recursive: true });
+      docfileName = path.join(<string>docs[i].path, docfileName);
+      testFileName = path.join(<string>docs[i].path, testFileName);
+    }
     await fs.promises.writeFile(
-      path.join(config.outputDir, `${docs[i].name}.md`),
+      path.join(config.outputDir, docfileName),
       result, {
         encoding: 'utf-8',
       },
@@ -179,7 +187,7 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
 
     if (config.testMode) {
       await fs.promises.writeFile(
-        path.join(config.outputDir, `${docs[i].name}.json`),
+        path.join(config.outputDir, testFileName),
         JSON.stringify(docs[i], null, 4), {
           encoding: 'utf-8',
         },
