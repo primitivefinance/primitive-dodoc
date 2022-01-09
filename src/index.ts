@@ -24,7 +24,7 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
     testMode: userConfig.dodoc?.testMode || false,
     outputDir: userConfig.dodoc?.outputDir || './docs',
     templatePath: userConfig.dodoc?.templatePath || path.join(__dirname, './template.sqrl'),
-    keepFileStructure: userConfig.dodoc?.keepFileStructure || true,
+    keepFileStructure: userConfig.dodoc?.keepFileStructure ?? true,
   };
 });
 
