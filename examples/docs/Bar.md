@@ -24,8 +24,8 @@ Baaps the yaps
 
 | Name | Type | Description |
 |---|---|---|
-| bar | uint256 | Number of bar
-| aar | address | Address of aar
+| bar | uint256 | Number of bar |
+| aar | address | Address of aar |
 
 ### boop
 
@@ -41,7 +41,7 @@ Cool function bro
 
 | Name | Type | Description |
 |---|---|---|
-| bar | uint256 | undefined
+| bar | uint256 | undefined |
 
 ### set
 
@@ -57,7 +57,7 @@ Sets a T
 
 | Name | Type | Description |
 |---|---|---|
-| t | IBar.T | T struct FTW
+| t | IBar.T | T struct FTW |
 
 
 
