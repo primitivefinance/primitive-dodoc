@@ -53,7 +53,6 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
   const sourcesPath = hre.config.paths.sources.substr(process.cwd().length + 1); // trick to get relative path to files, and trim the first /
   for (const qualifiedName of qualifiedNames) {
     const [source, name] = qualifiedName.split(':');
-
     // Checks if the documentation has to be generated for this contract
     if ((config.include.length === 0 || config.include.includes(name)) && !config.exclude.includes(name)) {
       const buildInfo = await hre.artifacts.getBuildInfo(qualifiedName);
@@ -70,7 +69,7 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
         console.log(JSON.stringify(info.devdoc, null, 4));
       }
 
-      const doc = { ...decodeAbi(info.abi), path: source.substr(sourcesPath.length).split('/').slice(0, -1).join('/') }; // remove filename
+      const doc = { ...decodeAbi(info.abi), path: source.substr(sourcesPath.length).split('/').slice(0, -1).join('/') }; // get file path without filename
 
       // Fetches info from userdoc
       for (const errorSig in info.userdoc?.errors) {
@@ -153,7 +152,6 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
       if (info.userdoc?.notice) doc.notice = info.userdoc.notice;
       if (info.devdoc?.details) doc.details = info.devdoc.details;
       if (info.devdoc?.author) doc.author = info.devdoc.author;
-
       doc.name = name;
       docs.push(doc);
     }
@@ -173,8 +171,8 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
     const result = Sqrl.render(template, docs[i]);
     let docfileName = `${docs[i].name}.md`;
     let testFileName = `${docs[i].name}.json`;
-    if (config.keepFileStructure && docs[i].path !== undefined && !fs.existsSync(path.join(config.outputDir, <string>docs[i].path))) {
-      await fs.promises.mkdir(path.join(config.outputDir, <string>docs[i].path), { recursive: true });
+    if (config.keepFileStructure && docs[i].path !== undefined) {
+      if (!fs.existsSync(path.join(config.outputDir, <string>docs[i].path))) await fs.promises.mkdir(path.join(config.outputDir, <string>docs[i].path), { recursive: true });
       docfileName = path.join(<string>docs[i].path, docfileName);
       testFileName = path.join(<string>docs[i].path, testFileName);
     }
