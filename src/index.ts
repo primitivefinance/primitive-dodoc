@@ -52,7 +52,7 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
 
   // Loops through all the qualified names to get all the compiled contracts
   const sourcesPath = hre.config.paths.sources.substr(process.cwd().length + 1); // trick to get relative path to files, and trim the first /
-      
+
   for (const qualifiedName of filteredQualifiedNames) {
     const [source, name] = qualifiedName.split(':');
 
@@ -88,10 +88,10 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
     }
 
     for (const methodSig in info.userdoc?.methods) {
-      const [methodName] = methodSig.split('(');
+      // const [methodName] = methodSig.split('(');
       const method = info.userdoc?.methods[methodSig];
 
-      if (doc.methods[methodName] !== undefined) doc.methods[methodName].notice = method?.notice;
+      if (doc.methods[methodSig] !== undefined) doc.methods[methodSig].notice = method?.notice;
     }
 
     // Fetches info from devdoc
@@ -121,30 +121,35 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
       const [methodName] = methodSig.split('(');
       const method = info.devdoc?.methods[methodSig];
 
-      if (doc.methods[methodName] !== undefined && methodName !== 'constructor') {
-        doc.methods[methodName].details = method?.details;
+      if (doc.methods[methodSig] !== undefined && methodName !== 'constructor') {
+        doc.methods[methodSig].details = method?.details;
 
         for (const param in method?.params) {
-          if (doc.methods[methodName].inputs[param]) doc.methods[methodName].inputs[param].description = method?.params[param];
+          if (doc.methods[methodSig].inputs[param]) doc.methods[methodSig].inputs[param].description = method?.params[param];
         }
 
         for (const output in method?.returns) {
-          if (doc.methods[methodName].outputs[output]) doc.methods[methodName].outputs[output].description = method?.returns[output];
+          if (doc.methods[methodSig].outputs[output]) doc.methods[methodSig].outputs[output].description = method?.returns[output];
         }
       }
     }
 
     for (const varName in info.devdoc?.stateVariables) {
       const variable = info.devdoc?.stateVariables[varName];
+      const abiInfo = info.abi.find((a:any) => a.name === varName);
 
-      if (doc.methods[varName]) doc.methods[varName].details = variable?.details;
+      const varNameWithParams = `${varName}(${
+        abiInfo?.inputs ? abiInfo.inputs.map((inp:any) => inp.type).join(',') : ''
+      })`;
+
+      if (doc.methods[varNameWithParams]) doc.methods[varNameWithParams].details = variable?.details;
 
       for (const param in variable?.params) {
-        if (doc.methods[varName].inputs[param]) doc.methods[varName].inputs[param].description = variable?.params[param];
+        if (doc.methods[varNameWithParams].inputs[param]) doc.methods[varNameWithParams].inputs[param].description = variable?.params[param];
       }
 
       for (const output in variable?.returns) {
-        if (doc.methods[varName].outputs[output]) doc.methods[varName].outputs[output].description = variable?.returns[output];
+        if (doc.methods[varNameWithParams].outputs[output]) doc.methods[varNameWithParams].outputs[output].description = variable?.returns[output];
       }
     }
 
