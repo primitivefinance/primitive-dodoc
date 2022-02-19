@@ -40,6 +40,9 @@ contract Bar is IBar {
     /// @notice Cool function bro
     function boop(uint256 bar) external { }
 
+    /// @notice Alt cool function bro
+    function boop(uint256 bar, uint256 bar2) external { }
+
     /// @notice Baaps the yaps
     /// @param bar Number of bar
     /// @param aar Address of aar

@@ -90,7 +90,7 @@ const config: HardhatUserConfig = {
   // Your Hardhat config...
   dodoc: {
     runOnCompile: true,
-    testMode: true,
+    debugMode: true,
     // More options...
   },
 };
@@ -100,14 +100,15 @@ export default config;
 
 Here are all the configuration parameters that are currently available, but as said above, all of them are entirely optional:
 
-| Parameter | Description | Default value |
-| -------- | -------- | -------- |
-| `runOnCompile`     | True if the plugin should generate the documentation on every compilation | `true`     |
-| `include` | List of all the contract / interface / library names to include in the documentation generation. An empty array will generate documentation for everything | `[]` |
-| `exclude` | List of all the contract / interface / library names to exclude from the documentation generation | `[]` |
-| `outputDir` | Output directory of the documentation | `docs` |
-| `templatePath` | Path to the documentation template | `./template.sqrl`|
-| `testMode` | Test mode generating additional JSON files used for debugging | `false` |
+| Parameter           | Description                                                                                                                                                | Default value     |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
+| `runOnCompile`      | True if the plugin should generate the documentation on every compilation                                                                                  | `true`            |
+| `include`           | List of all the contract / interface / library names to include in the documentation generation. An empty array will generate documentation for everything | `[]`              |
+| `exclude`           | List of all the contract / interface / library names to exclude from the documentation generation                                                          | `[]`              |
+| `outputDir`         | Output directory of the documentation                                                                                                                      | `docs`            |
+| `templatePath`      | Path to the documentation template                                                                                                                         | `./template.sqrl` |
+| `debugMode`          | Test mode generating additional JSON files used for debugging                                                                                              | `false`           |
+| `keepFileStructure` | True if you want to preserve your contracts file structure                                                                                                 | `true`            |
 
 ## 💅 Customize
 

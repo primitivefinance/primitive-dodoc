@@ -9,8 +9,10 @@ const config: HardhatUserConfig = {
     sources: './examples/contracts/',
   },
   dodoc: {
-    testMode: true,
+    debugMode: true,
     outputDir: './examples/docs',
+    exclude: ['excluded'],
+    runOnCompile: true,
   },
 };
 

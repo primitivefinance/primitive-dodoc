@@ -24,8 +24,8 @@ Baaps the yaps
 
 | Name | Type | Description |
 |---|---|---|
-| bar | uint256 | Number of bar
-| aar | address | Address of aar
+| bar | uint256 | Number of bar |
+| aar | address | Address of aar |
 
 ### boop
 
@@ -41,7 +41,24 @@ Cool function bro
 
 | Name | Type | Description |
 |---|---|---|
-| bar | uint256 | undefined
+| bar | uint256 | undefined |
+
+### boop
+
+```solidity
+function boop(uint256 bar, uint256 bar2) external nonpayable
+```
+
+Alt cool function bro
+
+
+
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| bar | uint256 | undefined |
+| bar2 | uint256 | undefined |
 
 ### set
 
@@ -49,15 +66,15 @@ Cool function bro
 function set(IBar.T t) external nonpayable
 ```
 
-Sets a T
 
-*Uses a struct*
+
+
 
 #### Parameters
 
 | Name | Type | Description |
 |---|---|---|
-| t | IBar.T | T struct FTW
+| t | IBar.T | undefined |
 
 
 

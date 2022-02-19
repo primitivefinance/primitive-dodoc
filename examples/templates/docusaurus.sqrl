@@ -47,7 +47,7 @@ description: {{@if (it.title)}}{{it.title}}{{/if}}
 | Name | Type | Description |
 |---|---|---|
 {{@foreach(val.inputs) => key, val}}
-| {{key}} | {{val.type}} | {{val.description}}
+| {{key}} | {{val.type}} | {{val.description}} |
 
 {{/foreach}}
 {{/if}}
@@ -58,7 +58,7 @@ description: {{@if (it.title)}}{{it.title}}{{/if}}
 | Name | Type | Description |
 |---|---|---|
 {{@foreach(val.outputs) => key, val}}
-| {{key}} | {{val.type}} | {{val.description}}
+| {{key}} | {{val.type}} | {{val.description}} |
 
 {{/foreach}}
 
