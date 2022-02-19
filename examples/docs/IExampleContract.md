@@ -24,13 +24,13 @@ Does another thing when the function is called.
 
 | Name | Type | Description |
 |---|---|---|
-| num | uint256 | A random number
+| num | uint256 | A random number |
 
 #### Returns
 
 | Name | Type | Description |
 |---|---|---|
-| _0 | uint256 | A random variable
+| _0 | uint256 | A random variable |
 
 ### boop
 
@@ -47,7 +47,7 @@ Poorly documented function starting with weird spaces.
 
 | Name | Type | Description |
 |---|---|---|
-| _0 | address | undefined
+| _0 | address | undefined |
 
 ### doSomething
 
@@ -63,15 +63,15 @@ Does something when this function is called.
 
 | Name | Type | Description |
 |---|---|---|
-| a | address | Address to do something
-| b | uint256 | Number to do something
+| a | address | Address to do something |
+| b | uint256 | Number to do something |
 
 #### Returns
 
 | Name | Type | Description |
 |---|---|---|
-| foo | uint256 | First return variable
-| bar | uint256 | Second return variable
+| foo | uint256 | First return variable |
+| bar | uint256 | Second return variable |
 
 ### pay
 

@@ -1,13 +1,8 @@
 /* eslint-disable guard-for-in, max-len, no-await-in-loop, no-restricted-syntax */
 import fs from 'fs';
 import path from 'path';
-import {
-  extendConfig,
-  task,
-} from 'hardhat/config';
-import {
-  TASK_COMPILE,
-} from 'hardhat/builtin-tasks/task-names';
+import { extendConfig, task } from 'hardhat/config';
+import { TASK_COMPILE } from 'hardhat/builtin-tasks/task-names';
 import { HardhatConfig, HardhatUserConfig } from 'hardhat/types';
 import * as Sqrl from 'squirrelly';
 
@@ -48,113 +43,119 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
   const docs: Doc[] = [];
 
   const qualifiedNames = await hre.artifacts.getAllFullyQualifiedNames();
+  const filteredQualifiedNames = qualifiedNames.filter((filePath: string) => {
+    // Checks if the documentation has to be generated for this contract
+    const includesPath = config.include.some((str) => filePath.includes(str));
+    const excludesPath = config.exclude.some((str) => filePath.includes(str));
+    return (config.include.length === 0 || includesPath) && !excludesPath;
+  });
 
   // Loops through all the qualified names to get all the compiled contracts
   const sourcesPath = hre.config.paths.sources.substr(process.cwd().length + 1); // trick to get relative path to files, and trim the first /
-  for (const qualifiedName of qualifiedNames) {
+      
+  for (const qualifiedName of filteredQualifiedNames) {
     const [source, name] = qualifiedName.split(':');
-    // Checks if the documentation has to be generated for this contract
-    if ((config.include.length === 0 || config.include.includes(name)) && !config.exclude.includes(name)) {
-      const buildInfo = await hre.artifacts.getBuildInfo(qualifiedName);
-      const info = buildInfo?.output.contracts[source][name] as CompilerOutputContractWithDocumentation;
 
-      if (config.testMode) {
-        console.log('ABI:\n');
-        console.log(JSON.stringify(info.abi, null, 4));
-        console.log('\n\n');
-        console.log('User doc:\n');
-        console.log(JSON.stringify(info.userdoc, null, 4));
-        console.log('\n\n');
-        console.log('Dev doc:\n');
-        console.log(JSON.stringify(info.devdoc, null, 4));
-      }
+    const buildInfo = await hre.artifacts.getBuildInfo(qualifiedName);
+    const info = buildInfo?.output.contracts[source][name] as CompilerOutputContractWithDocumentation;
 
-      const doc = { ...decodeAbi(info.abi), path: source.substr(sourcesPath.length).split('/').slice(0, -1).join('/') }; // get file path without filename
-
-      // Fetches info from userdoc
-      for (const errorSig in info.userdoc?.errors) {
-        const [errorName] = errorSig.split('(');
-        const error = info.userdoc?.errors[errorSig][0];
-
-        if (doc.errors[errorName] !== undefined) doc.errors[errorName].notice = error?.notice;
-      }
-
-      for (const eventSig in info.userdoc?.events) {
-        const [eventName] = eventSig.split('(');
-        const event = info.userdoc?.events[eventSig];
-
-        if (doc.events[eventName] !== undefined) doc.events[eventName].notice = event?.notice;
-      }
-
-      for (const methodSig in info.userdoc?.methods) {
-        const [methodName] = methodSig.split('(');
-        const method = info.userdoc?.methods[methodSig];
-
-        if (doc.methods[methodName] !== undefined) doc.methods[methodName].notice = method?.notice;
-      }
-
-      // Fetches info from devdoc
-      for (const errorSig in info.devdoc?.errors) {
-        const [errorName] = errorSig.split('(');
-        const error = info.devdoc?.errors[errorSig][0];
-
-        if (doc.errors[errorName] !== undefined) doc.errors[errorName].details = error?.details;
-
-        for (const param in error?.params) {
-          if (doc.errors[errorName].inputs[param]) doc.errors[errorName].inputs[param].description = error?.params[param];
-        }
-      }
-
-      for (const eventSig in info.devdoc?.events) {
-        const [eventName] = eventSig.split('(');
-        const event = info.devdoc?.events[eventSig];
-
-        if (doc.events[eventName] !== undefined) doc.events[eventName].details = event?.details;
-
-        for (const param in event?.params) {
-          if (doc.events[eventName].inputs[param]) doc.events[eventName].inputs[param].description = event?.params[param];
-        }
-      }
-
-      for (const methodSig in info.devdoc?.methods) {
-        const [methodName] = methodSig.split('(');
-        const method = info.devdoc?.methods[methodSig];
-
-        if (doc.methods[methodName] !== undefined && methodName !== 'constructor') {
-          doc.methods[methodName].details = method?.details;
-
-          for (const param in method?.params) {
-            if (doc.methods[methodName].inputs[param]) doc.methods[methodName].inputs[param].description = method?.params[param];
-          }
-
-          for (const output in method?.returns) {
-            if (doc.methods[methodName].outputs[output]) doc.methods[methodName].outputs[output].description = method?.returns[output];
-          }
-        }
-      }
-
-      for (const varName in info.devdoc?.stateVariables) {
-        const variable = info.devdoc?.stateVariables[varName];
-
-        if (doc.methods[varName]) doc.methods[varName].details = variable?.details;
-
-        for (const param in variable?.params) {
-          if (doc.methods[varName].inputs[param]) doc.methods[varName].inputs[param].description = variable?.params[param];
-        }
-
-        for (const output in variable?.returns) {
-          if (doc.methods[varName].outputs[output]) doc.methods[varName].outputs[output].description = variable?.returns[output];
-        }
-      }
-
-      // Fetches global info
-      if (info.devdoc?.title) doc.title = info.devdoc.title;
-      if (info.userdoc?.notice) doc.notice = info.userdoc.notice;
-      if (info.devdoc?.details) doc.details = info.devdoc.details;
-      if (info.devdoc?.author) doc.author = info.devdoc.author;
-      doc.name = name;
-      docs.push(doc);
+    if (config.testMode) {
+      console.log('ABI:\n');
+      console.log(JSON.stringify(info.abi, null, 4));
+      console.log('\n\n');
+      console.log('User doc:\n');
+      console.log(JSON.stringify(info.userdoc, null, 4));
+      console.log('\n\n');
+      console.log('Dev doc:\n');
+      console.log(JSON.stringify(info.devdoc, null, 4));
     }
+
+    const doc = { ...decodeAbi(info.abi), path: source.substr(sourcesPath.length).split('/').slice(0, -1).join('/') }; // get file path without filename
+
+    // Fetches info from userdoc
+    for (const errorSig in info.userdoc?.errors) {
+      const [errorName] = errorSig.split('(');
+      const error = info.userdoc?.errors[errorSig][0];
+
+      if (doc.errors[errorName] !== undefined) doc.errors[errorName].notice = error?.notice;
+    }
+
+    for (const eventSig in info.userdoc?.events) {
+      const [eventName] = eventSig.split('(');
+      const event = info.userdoc?.events[eventSig];
+
+      if (doc.events[eventName] !== undefined) doc.events[eventName].notice = event?.notice;
+    }
+
+    for (const methodSig in info.userdoc?.methods) {
+      const [methodName] = methodSig.split('(');
+      const method = info.userdoc?.methods[methodSig];
+
+      if (doc.methods[methodName] !== undefined) doc.methods[methodName].notice = method?.notice;
+    }
+
+    // Fetches info from devdoc
+    for (const errorSig in info.devdoc?.errors) {
+      const [errorName] = errorSig.split('(');
+      const error = info.devdoc?.errors[errorSig][0];
+
+      if (doc.errors[errorName] !== undefined) doc.errors[errorName].details = error?.details;
+
+      for (const param in error?.params) {
+        if (doc.errors[errorName].inputs[param]) doc.errors[errorName].inputs[param].description = error?.params[param];
+      }
+    }
+
+    for (const eventSig in info.devdoc?.events) {
+      const [eventName] = eventSig.split('(');
+      const event = info.devdoc?.events[eventSig];
+
+      if (doc.events[eventName] !== undefined) doc.events[eventName].details = event?.details;
+
+      for (const param in event?.params) {
+        if (doc.events[eventName].inputs[param]) doc.events[eventName].inputs[param].description = event?.params[param];
+      }
+    }
+
+    for (const methodSig in info.devdoc?.methods) {
+      const [methodName] = methodSig.split('(');
+      const method = info.devdoc?.methods[methodSig];
+
+      if (doc.methods[methodName] !== undefined && methodName !== 'constructor') {
+        doc.methods[methodName].details = method?.details;
+
+        for (const param in method?.params) {
+          if (doc.methods[methodName].inputs[param]) doc.methods[methodName].inputs[param].description = method?.params[param];
+        }
+
+        for (const output in method?.returns) {
+          if (doc.methods[methodName].outputs[output]) doc.methods[methodName].outputs[output].description = method?.returns[output];
+        }
+      }
+    }
+
+    for (const varName in info.devdoc?.stateVariables) {
+      const variable = info.devdoc?.stateVariables[varName];
+
+      if (doc.methods[varName]) doc.methods[varName].details = variable?.details;
+
+      for (const param in variable?.params) {
+        if (doc.methods[varName].inputs[param]) doc.methods[varName].inputs[param].description = variable?.params[param];
+      }
+
+      for (const output in variable?.returns) {
+        if (doc.methods[varName].outputs[output]) doc.methods[varName].outputs[output].description = variable?.returns[output];
+      }
+    }
+
+    // Fetches global info
+    if (info.devdoc?.title) doc.title = info.devdoc.title;
+    if (info.userdoc?.notice) doc.notice = info.userdoc.notice;
+    if (info.devdoc?.details) doc.details = info.devdoc.details;
+    if (info.devdoc?.author) doc.author = info.devdoc.author;
+
+    doc.name = name;
+    docs.push(doc);
   }
 
   try {

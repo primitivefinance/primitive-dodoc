@@ -24,7 +24,7 @@ function boop(uint256 bar) external nonpayable
 
 | Name | Type | Description |
 |---|---|---|
-| bar | uint256 | undefined
+| bar | uint256 | undefined |
 
 ### set
 
@@ -40,7 +40,7 @@ Sets a T
 
 | Name | Type | Description |
 |---|---|---|
-| t | IBar.T | T struct FTW
+| t | IBar.T | T struct FTW |
 
 
 
