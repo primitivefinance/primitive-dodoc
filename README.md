@@ -90,7 +90,7 @@ const config: HardhatUserConfig = {
   // Your Hardhat config...
   dodoc: {
     runOnCompile: true,
-    testMode: true,
+    debugMode: true,
     // More options...
   },
 };
@@ -107,7 +107,7 @@ Here are all the configuration parameters that are currently available, but as s
 | `exclude`           | List of all the contract / interface / library names to exclude from the documentation generation                                                          | `[]`              |
 | `outputDir`         | Output directory of the documentation                                                                                                                      | `docs`            |
 | `templatePath`      | Path to the documentation template                                                                                                                         | `./template.sqrl` |
-| `testMode`          | Test mode generating additional JSON files used for debugging                                                                                              | `false`           |
+| `debugMode`          | Test mode generating additional JSON files used for debugging                                                                                              | `false`           |
 | `keepFileStructure` | True if you want to preserve your contracts file structure                                                                                                 | `true`            |
 
 ## 💅 Customize

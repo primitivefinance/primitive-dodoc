@@ -16,7 +16,7 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
     include: userConfig.dodoc?.include || [],
     exclude: userConfig.dodoc?.exclude || [],
     runOnCompile: userConfig.dodoc?.runOnCompile !== undefined ? userConfig.dodoc?.runOnCompile : true,
-    testMode: userConfig.dodoc?.testMode || false,
+    debugMode: userConfig.dodoc?.debugMode || false,
     outputDir: userConfig.dodoc?.outputDir || './docs',
     templatePath: userConfig.dodoc?.templatePath || path.join(__dirname, './template.sqrl'),
     keepFileStructure: userConfig.dodoc?.keepFileStructure ?? true,
@@ -59,7 +59,7 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
     const buildInfo = await hre.artifacts.getBuildInfo(qualifiedName);
     const info = buildInfo?.output.contracts[source][name] as CompilerOutputContractWithDocumentation;
 
-    if (config.testMode) {
+    if (config.debugMode) {
       console.log('ABI:\n');
       console.log(JSON.stringify(info.abi, null, 4));
       console.log('\n\n');
@@ -189,7 +189,7 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
       },
     );
 
-    if (config.testMode) {
+    if (config.debugMode) {
       await fs.promises.writeFile(
         path.join(config.outputDir, testFileName),
         JSON.stringify(docs[i], null, 4), {
