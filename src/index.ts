@@ -3,7 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import { extendConfig, task } from 'hardhat/config';
 import { TASK_COMPILE } from 'hardhat/builtin-tasks/task-names';
-import { HardhatConfig, HardhatUserConfig } from 'hardhat/types';
+import {
+  HardhatConfig,
+  HardhatRuntimeEnvironment,
+  HardhatUserConfig,
+  RunSuperFunction,
+} from 'hardhat/types';
 import * as Sqrl from 'squirrelly';
 
 import { CompilerOutputContractWithDocumentation, Doc } from './dodocTypes';
@@ -23,8 +28,11 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
   };
 });
 
-// Custom task triggered when COMPILE is called
-task(TASK_COMPILE, async (args, hre, runSuper) => {
+async function generateDocumentation(
+  hre: HardhatRuntimeEnvironment,
+  runSuper?: RunSuperFunction<any>,
+  shouldRunSuper: boolean = false,
+): Promise<void> {
   const config = hre.config.dodoc;
 
   // Updates the compiler settings
@@ -33,11 +41,12 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
     compiler.settings.outputSelection['*']['*'].push('userdoc');
   }
 
-  // Calls the actual COMPILE task
-  await runSuper();
-
-  if (!config.runOnCompile) {
-    return;
+  if (shouldRunSuper && runSuper) {
+    // Calls super to COMPILE
+    runSuper();
+  } else {
+    // Calls the actual COMPILE task
+    await hre.run(TASK_COMPILE);
   }
 
   const docs: Doc[] = [];
@@ -200,4 +209,17 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
   }
 
   console.log('✅ Generated documentation for', docs.length, docs.length > 1 ? 'contracts' : 'contract');
+}
+
+// Custom standalone task
+task('dodoc', 'Generates NatSpec documentation for the project')
+  .setAction(async (args, hre) => {
+    await generateDocumentation(hre);
+  });
+
+// Overriding task triggered when COMPILE is called
+task(TASK_COMPILE, async (args, hre, runSuper) => {
+  if (hre.config.dodoc.runOnCompile) {
+    await generateDocumentation(hre, runSuper, true);
+  }
 });
