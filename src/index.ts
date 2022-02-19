@@ -25,6 +25,7 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
     outputDir: userConfig.dodoc?.outputDir || './docs',
     templatePath: userConfig.dodoc?.templatePath || path.join(__dirname, './template.sqrl'),
     keepFileStructure: userConfig.dodoc?.keepFileStructure ?? true,
+    freshOutput: userConfig.dodoc?.freshOutput ?? true,
   };
 });
 
@@ -174,6 +175,13 @@ async function generateDocumentation(
 
   try {
     await fs.promises.access(config.outputDir);
+
+    if (config.freshOutput) {
+      await fs.promises.rm(config.outputDir, {
+        recursive: true,
+      });
+      await fs.promises.mkdir(config.outputDir);
+    }
   } catch (e) {
     await fs.promises.mkdir(config.outputDir);
   }

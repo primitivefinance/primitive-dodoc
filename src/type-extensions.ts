@@ -10,6 +10,7 @@ declare module 'hardhat/types/config' {
       templatePath?: string;
       outputDir?: string;
       keepFileStructure?: boolean;
+      freshOutput?: boolean;
     }
   }
 
@@ -22,6 +23,7 @@ declare module 'hardhat/types/config' {
       templatePath: string;
       outputDir: string;
       keepFileStructure: boolean;
+      freshOutput: boolean;
     }
   }
 }
