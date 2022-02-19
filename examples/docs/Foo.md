@@ -24,13 +24,13 @@ Returns the nonce of an address
 
 | Name | Type | Description |
 |---|---|---|
-| _0 | address | Address to inspect
+| _0 | address | Address to inspect |
 
 #### Returns
 
 | Name | Type | Description |
 |---|---|---|
-| _0 | uint256 | Current nonce of the address
+| _0 | uint256 | Current nonce of the address |
 
 
 
