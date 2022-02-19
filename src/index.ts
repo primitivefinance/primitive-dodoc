@@ -31,25 +31,8 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
 
 async function generateDocumentation(
   hre: HardhatRuntimeEnvironment,
-  runSuper?: RunSuperFunction<any>,
-  shouldRunSuper: boolean = false,
 ): Promise<void> {
   const config = hre.config.dodoc;
-
-  // Updates the compiler settings
-  for (const compiler of hre.config.solidity.compilers) {
-    compiler.settings.outputSelection['*']['*'].push('devdoc');
-    compiler.settings.outputSelection['*']['*'].push('userdoc');
-  }
-
-  if (shouldRunSuper && runSuper) {
-    // Calls super to COMPILE
-    runSuper();
-  } else {
-    // Calls the actual COMPILE task
-    await hre.run(TASK_COMPILE);
-  }
-
   const docs: Doc[] = [];
 
   const qualifiedNames = await hre.artifacts.getAllFullyQualifiedNames();
@@ -221,13 +204,29 @@ async function generateDocumentation(
 
 // Custom standalone task
 task('dodoc', 'Generates NatSpec documentation for the project')
+  .addFlag('noCompile', 'Prevents compiling before running this task')
   .setAction(async (args, hre) => {
+    if (!args.noCompile) {
+      await hre.run(TASK_COMPILE, { noDodoc: true });
+    }
+
     await generateDocumentation(hre);
   });
 
 // Overriding task triggered when COMPILE is called
-task(TASK_COMPILE, async (args, hre, runSuper) => {
-  if (hre.config.dodoc.runOnCompile) {
-    await generateDocumentation(hre, runSuper, true);
-  }
-});
+task(TASK_COMPILE)
+  .addFlag('noDodoc', 'Prevents generating NatSpec documentation for the project')
+  .setAction(async (args, hre, runSuper) => {
+    // Updates the compiler settings
+    for (const compiler of hre.config.solidity.compilers) {
+      compiler.settings.outputSelection['*']['*'].push('devdoc');
+      compiler.settings.outputSelection['*']['*'].push('userdoc');
+    }
+
+    // Compiles the contracts
+    await runSuper();
+
+    if (hre.config.dodoc.runOnCompile && !args.noDodoc) {
+      await hre.run('dodoc', { noCompile: true });
+    }
+  });
