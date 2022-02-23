@@ -1,0 +1,25 @@
+{
+    "methods": {
+        "nonces2": {
+            "stateMutability": "view",
+            "code": "function nonces2(address _0) external view returns (uint256)",
+            "inputs": {
+                "_0": {
+                    "type": "address",
+                    "description": "Address to inspect"
+                }
+            },
+            "outputs": {
+                "_0": {
+                    "type": "uint256",
+                    "description": "Current nonce of the address"
+                }
+            },
+            "notice": "Returns the nonce of an address",
+            "details": "Nonces much"
+        }
+    },
+    "events": {},
+    "errors": {},
+    "name": "IFoo"
+}
