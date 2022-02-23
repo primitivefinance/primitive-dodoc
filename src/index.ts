@@ -22,6 +22,7 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
     exclude: userConfig.dodoc?.exclude || [],
     runOnCompile: userConfig.dodoc?.runOnCompile !== undefined ? userConfig.dodoc?.runOnCompile : true,
     testMode: userConfig.dodoc?.testMode || false,
+    reproDirStruct: userConfig.dodoc?.reproDirStruct || false,
     outputDir: userConfig.dodoc?.outputDir || './docs',
     templatePath: userConfig.dodoc?.templatePath || path.join(__dirname, './template.sqrl'),
   };
@@ -53,7 +54,9 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
     const [source, name] = qualifiedName.split(':');
 
     // Checks if the documentation has to be generated for this contract
-    if ((config.include.length === 0 || config.include.includes(name)) && !config.exclude.includes(name)) {
+    const include = config.include.length === 0 || config.include.includes(name) || config.include.includes(qualifiedName)
+    const exclude = config.exclude.includes(name) || config.exclude.includes(qualifiedName)
+    if (include && !exclude) {
       const buildInfo = await hre.artifacts.getBuildInfo(qualifiedName);
       const info = buildInfo?.output.contracts[source][name] as CompilerOutputContractWithDocumentation;
 
@@ -153,6 +156,9 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
       if (info.devdoc?.author) doc.author = info.devdoc.author;
 
       doc.name = name;
+      if (config.reproDirStruct) {
+        doc.source = source;
+      }
       docs.push(doc);
     }
   }
@@ -168,10 +174,18 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
   });
 
   for (let i = 0; i < docs.length; i += 1) {
-    const result = Sqrl.render(template, docs[i]);
+    const doc = docs[i];
+    let outputDir = config.outputDir;
+    if (config.reproDirStruct && doc.source) {
+      outputDir = path.join(outputDir, `${doc.source}`);
+      delete doc.source;
+      await fs.promises.mkdir(outputDir, {recursive: true});
+    }
+
+    const result = Sqrl.render(template, doc);
 
     await fs.promises.writeFile(
-      path.join(config.outputDir, `${docs[i].name}.md`),
+      path.join(outputDir, `${doc.name}.md`),
       result, {
         encoding: 'utf-8',
       },
@@ -179,8 +193,8 @@ task(TASK_COMPILE, async (args, hre, runSuper) => {
 
     if (config.testMode) {
       await fs.promises.writeFile(
-        path.join(config.outputDir, `${docs[i].name}.json`),
-        JSON.stringify(docs[i], null, 4), {
+        path.join(outputDir, `${doc.name}.json`),
+        JSON.stringify(doc, null, 4), {
           encoding: 'utf-8',
         },
       );

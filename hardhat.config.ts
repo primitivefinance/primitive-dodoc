@@ -10,7 +10,8 @@ const config: HardhatUserConfig = {
   },
   dodoc: {
     testMode: true,
-    outputDir: './examples/docs',
+    outputDir: './docs',
+    reproDirStruct: true,
   },
 };
 

@@ -106,8 +106,13 @@ Here are all the configuration parameters that are currently available, but as s
 | `include` | List of all the contract / interface / library names to include in the documentation generation. An empty array will generate documentation for everything | `[]` |
 | `exclude` | List of all the contract / interface / library names to exclude from the documentation generation | `[]` |
 | `outputDir` | Output directory of the documentation | `docs` |
+| `reproDirStruct` | Reproduce the contracts directory structure in the docs | `false` |
 | `templatePath` | Path to the documentation template | `./template.sqrl`|
 | `testMode` | Test mode generating additional JSON files used for debugging | `false` |
+
+NOTE: names in `include` or `exclude` can be either with or without full qualified path, eg: 'examples\contracts\FooBar\Bar.sol:IBar' or 'IBar'.
+
+NOTE: using names without fully qualified name or with `reproDirStruct` false will overwrite any output of the same name.
 
 ## 💅 Customize
 

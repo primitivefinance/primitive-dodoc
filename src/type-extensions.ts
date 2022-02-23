@@ -9,6 +9,7 @@ declare module 'hardhat/types/config' {
       testMode?: boolean;
       templatePath?: string;
       outputDir?: string;
+      reproDirStruct?: boolean;
     }
   }
 
@@ -19,7 +20,8 @@ declare module 'hardhat/types/config' {
       runOnCompile: boolean;
       testMode: boolean;
       templatePath: string;
-      outputDir: string
+      outputDir: string;
+      reproDirStruct: boolean;
     }
   }
 }
