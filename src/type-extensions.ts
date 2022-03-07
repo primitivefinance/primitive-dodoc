@@ -6,9 +6,11 @@ declare module 'hardhat/types/config' {
       include?: string[];
       exclude?: string[];
       runOnCompile?: boolean;
-      testMode?: boolean;
+      debugMode?: boolean;
       templatePath?: string;
       outputDir?: string;
+      keepFileStructure?: boolean;
+      freshOutput?: boolean;
     }
   }
 
@@ -17,9 +19,11 @@ declare module 'hardhat/types/config' {
       include: string[];
       exclude: string[];
       runOnCompile: boolean;
-      testMode: boolean;
+      debugMode: boolean;
       templatePath: string;
-      outputDir: string
+      outputDir: string;
+      keepFileStructure: boolean;
+      freshOutput: boolean;
     }
   }
 }

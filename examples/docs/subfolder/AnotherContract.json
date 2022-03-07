@@ -1,0 +1,25 @@
+{
+    "methods": {
+        "tip(uint256,address)": {
+            "stateMutability": "nonpayable",
+            "code": "function tip(uint256 much, address mop) external nonpayable",
+            "inputs": {
+                "much": {
+                    "type": "uint256",
+                    "description": "How much"
+                },
+                "mop": {
+                    "type": "address",
+                    "description": "No idea what this is"
+                }
+            },
+            "outputs": {},
+            "notice": "A strange function",
+            "details": "Someone wrote this weird function..."
+        }
+    },
+    "events": {},
+    "errors": {},
+    "path": "subfolder",
+    "name": "AnotherContract"
+}

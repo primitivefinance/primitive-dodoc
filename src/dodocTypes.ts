@@ -129,6 +129,7 @@ export interface Error {
 }
 
 export interface Doc {
+  path?: string;
   name?: string;
   title?: string;
   notice?: string;

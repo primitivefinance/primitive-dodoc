@@ -1,6 +1,6 @@
 {
   "name": "@primitivefi/hardhat-dodoc",
-  "version": "0.1.3",
+  "version": "0.2.2",
   "description": "Zero-config Hardhat plugin to generate documentation for all your Solidity contracts",
   "repository": "github:primitivefinance/primitive-dodoc",
   "author": "Primitive",
@@ -16,7 +16,8 @@
     "natspec"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc && cp ./src/template.sqrl ./dist/src",
+    "compile": "hardhat compile",
     "prepublishOnly": "npm run build"
   },
   "files": [
