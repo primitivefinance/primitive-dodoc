@@ -16,7 +16,7 @@
     "natspec"
   ],
   "scripts": {
-    "build": "tsc && cp ./src/template.sqrl ./dist/src",
+    "build": "rm -rf dist && tsc && cp ./src/template.sqrl ./dist/src",
     "compile": "hardhat compile",
     "prepublishOnly": "npm run build"
   },
