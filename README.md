@@ -66,13 +66,13 @@ Dodoc will take care of everything and will generate the following output:
 >
 > | Name | Type | Description |
 > |---|---|---|
-> | num | uint256 | A random number
+> | num | uint256 | A random number |
 >
 > #### Returns
 >
 > | Name | Type | Description |
 > |---|---|---|
-> | _0 | uint256 | A random variable
+> | _0 | uint256 | A random variable |
 
 Dodoc is compatible with all the NatSpec tags (except custom ones for now), and can generate documentation for events, custom errors and external / public functions.
 
