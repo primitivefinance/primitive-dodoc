@@ -74,7 +74,17 @@ Dodoc will take care of everything and will generate the following output:
 > |---|---|---|
 > | _0 | uint256 | A random variable
 
-Dodoc is compatible with all the NatSpec tags (except custom ones), and can generate documentation for events, custom errors and external / public functions.
+Dodoc is compatible with all the NatSpec tags (except custom ones for now), and can generate documentation for events, custom errors and external / public functions.
+
+By default Dodoc generates new documentation after each compilation, but you can also trigger the task with the following command:
+
+```bash
+# Using yarn
+yarn hardhat dodoc
+
+# Or using npx
+npx hardhat dodoc
+```
 
 ## 🔧 Config
 
@@ -103,12 +113,13 @@ Here are all the configuration parameters that are currently available, but as s
 | Parameter           | Description                                                                                                                                                | Default value     |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
 | `runOnCompile`      | True if the plugin should generate the documentation on every compilation                                                                                  | `true`            |
-| `include`           | List of all the contract / interface / library names to include in the documentation generation. An empty array will generate documentation for everything | `[]`              |
-| `exclude`           | List of all the contract / interface / library names to exclude from the documentation generation                                                          | `[]`              |
+| `include`           | List of all the contract / interface / library / folder names to include in the documentation generation. An empty array will generate documentation for everything | `[]`              |
+| `exclude`           | List of all the contract / interface / library / folder names to exclude from the documentation generation                                                          | `[]`              |
 | `outputDir`         | Output directory of the documentation                                                                                                                      | `docs`            |
 | `templatePath`      | Path to the documentation template                                                                                                                         | `./template.sqrl` |
 | `debugMode`          | Test mode generating additional JSON files used for debugging                                                                                              | `false`           |
-| `keepFileStructure` | True if you want to preserve your contracts file structure                                                                                                 | `true`            |
+| `keepFileStructure` | True if you want to preserve your contracts file structure in the output directory                                                                                                 | `true`            |
+| `freshOutput` | True if you want to clean the output directory before generating new documentation | `true` |
 
 ## 💅 Customize
 
