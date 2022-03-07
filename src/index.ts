@@ -7,7 +7,6 @@ import {
   HardhatConfig,
   HardhatRuntimeEnvironment,
   HardhatUserConfig,
-  RunSuperFunction,
 } from 'hardhat/types';
 import * as Sqrl from 'squirrelly';
 
