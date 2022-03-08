@@ -21,7 +21,7 @@ description: {{@if (it.title)}}{{it.title}}{{/if}}
 ## Methods
 
 {{@foreach(it.methods) => key, val}}
-### {{key}}
+### {{key.split('(')[0]}}
 
 
 {{@if (val.notice)}}{{val.notice}}{{/if}}
@@ -48,7 +48,6 @@ description: {{@if (it.title)}}{{it.title}}{{/if}}
 |---|---|---|
 {{@foreach(val.inputs) => key, val}}
 | {{key}} | {{val.type}} | {{val.description}} |
-
 {{/foreach}}
 {{/if}}
 
@@ -59,7 +58,6 @@ description: {{@if (it.title)}}{{it.title}}{{/if}}
 |---|---|---|
 {{@foreach(val.outputs) => key, val}}
 | {{key}} | {{val.type}} | {{val.description}} |
-
 {{/foreach}}
 
 {{/if}}
