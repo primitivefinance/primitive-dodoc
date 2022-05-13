@@ -120,6 +120,7 @@ Here are all the configuration parameters that are currently available, but as s
 | `debugMode`          | Test mode generating additional JSON files used for debugging                                                                                              | `false`           |
 | `keepFileStructure` | True if you want to preserve your contracts file structure in the output directory                                                                                                 | `true`            |
 | `freshOutput` | True if you want to clean the output directory before generating new documentation | `true` |
+| `tableOfContents` | True if you want to generate a simple table of contents in the output directory root as `README.md` | `false` |
 
 ## 💅 Customize
 

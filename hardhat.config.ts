@@ -13,6 +13,7 @@ const config: HardhatUserConfig = {
     outputDir: './examples/docs',
     exclude: ['excluded'],
     runOnCompile: true,
+    tableOfContents: true,
   },
 };
 
