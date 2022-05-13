@@ -25,6 +25,7 @@ extendConfig((config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) =>
     templatePath: userConfig.dodoc?.templatePath || path.join(__dirname, './template.sqrl'),
     keepFileStructure: userConfig.dodoc?.keepFileStructure ?? true,
     freshOutput: userConfig.dodoc?.freshOutput ?? true,
+    tableOfContents: userConfig.dodoc?.tableOfContents ?? false,
   };
 });
 
@@ -181,6 +182,7 @@ async function generateDocumentation(
       docfileName = path.join(<string>docs[i].path, docfileName);
       testFileName = path.join(<string>docs[i].path, testFileName);
     }
+
     await fs.promises.writeFile(
       path.join(config.outputDir, docfileName),
       result, {
@@ -196,6 +198,23 @@ async function generateDocumentation(
         },
       );
     }
+  }
+
+  if (config.tableOfContents) {
+    // Create array for table of contents
+    const tocArray = ['# Documentation\n\n### Table of contents\n\n'];
+    // Iterate over all docs
+    docs.forEach((doc) => {
+      const docfileName = `${doc.name}.md`;
+      tocArray.push(`* [${doc.name}](${config.keepFileStructure ? path.join(doc.path || '', docfileName) : docfileName})`);
+    });
+    // Write the table of contents to the output directory
+    await fs.promises.writeFile(
+      path.join(config.outputDir, 'README.md'),
+      tocArray.join('\n'), {
+        encoding: 'utf-8',
+      },
+    );
   }
 
   console.log('✅ Generated documentation for', docs.length, docs.length > 1 ? 'contracts' : 'contract');

@@ -11,6 +11,7 @@ declare module 'hardhat/types/config' {
       outputDir?: string;
       keepFileStructure?: boolean;
       freshOutput?: boolean;
+      tableOfContents?: boolean;
     }
   }
 
@@ -24,6 +25,7 @@ declare module 'hardhat/types/config' {
       outputDir: string;
       keepFileStructure: boolean;
       freshOutput: boolean;
+      tableOfContents: boolean;
     }
   }
 }
