@@ -1,5 +1,10 @@
 import {
-  AbiElement, Doc, Method, Error, Event,
+  AbiElement,
+  AbiElementPut,
+  Doc,
+  Method,
+  Error,
+  Event,
 } from './dodocTypes';
 
 export function getCodeFromAbi(element: AbiElement): string {
@@ -54,6 +59,18 @@ export function getCodeFromAbi(element: AbiElement): string {
   }
 
   return code;
+}
+
+function buildFunctionSig(inputs: AbiElementPut[]) {
+  return inputs
+    .map((inp) => {
+      if (inp.type === 'tuple') {
+        return `(${inp.components?.map((comp) => comp.type).join(',')})`;
+      }
+
+      return inp.type;
+    })
+    .join(',');
 }
 
 export function decodeAbi(abi: AbiElement[]): Doc {
@@ -111,9 +128,9 @@ export function decodeAbi(abi: AbiElement[]): Doc {
         };
       });
 
-      doc.methods[`${el.name}(${
-        el.inputs ? el.inputs.map((inp) => inp.type).join(',') : ''
-      })`] = func;
+      doc.methods[
+        `${el.name}(${el.inputs ? buildFunctionSig(el.inputs) : ''})`
+      ] = func;
     }
 
     if (el.type === 'event') {

@@ -66,15 +66,15 @@ Alt cool function bro
 function set(IBar.T t) external nonpayable
 ```
 
+Sets a T
 
-
-
+*Uses a struct*
 
 #### Parameters
 
 | Name | Type | Description |
 |---|---|---|
-| t | IBar.T | undefined |
+| t | IBar.T | T struct FTW |
 
 
 
