@@ -76,11 +76,18 @@ export interface CompilerOutputContractWithDocumentation extends CompilerOutputC
   }
 }
 
+export interface AbiElementComponent {
+  internalType: string;
+  name: string;
+  type: string;
+}
+
 export interface AbiElementPut {
   internalType: string;
   name: string;
   type: string;
   indexed?: boolean;
+  components?: AbiElementComponent[];
 }
 
 export interface AbiElement {
