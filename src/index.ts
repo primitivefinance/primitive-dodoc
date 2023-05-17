@@ -96,6 +96,15 @@ async function generateDocumentation(
       for (const param in error?.params) {
         if (doc.errors[errorName].inputs[param]) doc.errors[errorName].inputs[param].description = error?.params[param];
       }
+
+      for (const value in error) {
+        if (value.startsWith('custom:')) {
+          const strippedValue = value.substring(7);
+          if (strippedValue.length > 0) {
+            doc.errors[errorName][`custom:${strippedValue}`] = error[`custom:${strippedValue}`];
+          }
+        }
+      }
     }
 
     for (const eventSig in info.devdoc?.events) {
@@ -106,6 +115,15 @@ async function generateDocumentation(
 
       for (const param in event?.params) {
         if (doc.events[eventName].inputs[param]) doc.events[eventName].inputs[param].description = event?.params[param];
+      }
+
+      for (const value in event) {
+        if (value.startsWith('custom:')) {
+          const strippedValue = value.substring(6);
+          if (strippedValue.length > 0) {
+            doc.events[eventName][`custom:${strippedValue}`] = event[`custom:${strippedValue}`];
+          }
+        }
       }
     }
 
@@ -122,6 +140,15 @@ async function generateDocumentation(
 
         for (const output in method?.returns) {
           if (doc.methods[methodSig].outputs[output]) doc.methods[methodSig].outputs[output].description = method?.returns[output];
+        }
+      }
+
+      for (const value in method) {
+        if (value.startsWith('custom:')) {
+          const strippedValue = value.substring(6);
+          if (strippedValue.length > 0) {
+            doc.methods[methodSig][`custom:${strippedValue}`] = method[`custom:${strippedValue}`];
+          }
         }
       }
     }

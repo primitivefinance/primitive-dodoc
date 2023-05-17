@@ -74,7 +74,8 @@
                 }
             },
             "notice": "Thrown when doh",
-            "details": "Bad doh error"
+            "details": "Bad doh error",
+            "custom:info": "Additional info"
         }
     },
     "path": "",

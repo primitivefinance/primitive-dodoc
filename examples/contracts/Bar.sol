@@ -21,11 +21,13 @@ interface IBar {
     /// @notice Emitted when transfer
     /// @dev Transfer some stuff
     /// @param foo Amount of stuff
+    /// @custom:danger This event exposes private info
     event Transfer(uint256 foo);
 
     /// @notice Thrown when doh
     /// @dev Bad doh error
     /// @param yay A bool
+    /// @custom:info Additional info
     error Doh(bool yay);
 }
 
@@ -38,6 +40,7 @@ contract Bar is IBar {
     function set(T memory t) external { }
 
     /// @notice Cool function bro
+    /// @custom:requirement Check this requirement
     function boop(uint256 bar) external { }
 
     /// @notice Alt cool function bro

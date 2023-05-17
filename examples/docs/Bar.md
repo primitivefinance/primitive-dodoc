@@ -20,6 +20,8 @@ Baaps the yaps
 
 
 
+
+
 #### Parameters
 
 | Name | Type | Description |
@@ -34,6 +36,8 @@ function boop(uint256 bar) external nonpayable
 ```
 
 Cool function bro
+
+
 
 
 
@@ -53,6 +57,8 @@ Alt cool function bro
 
 
 
+
+
 #### Parameters
 
 | Name | Type | Description |
@@ -65,6 +71,8 @@ Alt cool function bro
 ```solidity
 function set(IBar.T t) external nonpayable
 ```
+
+
 
 
 
@@ -90,6 +98,8 @@ Emitted when transfer
 
 
 
+
+
 #### Parameters
 
 | Name | Type | Description |
@@ -107,8 +117,10 @@ error Doh(bool yay)
 ```
 
 Thrown when doh
-
 *Bad doh error*
+
+
+**Info:** *Additional info*
 
 #### Parameters
 
