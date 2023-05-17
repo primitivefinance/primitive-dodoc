@@ -119,7 +119,7 @@ async function generateDocumentation(
 
       for (const value in event) {
         if (value.startsWith('custom:')) {
-          const strippedValue = value.substring(6);
+          const strippedValue = value.substring(7);
           if (strippedValue.length > 0) {
             doc.events[eventName][`custom:${strippedValue}`] = event[`custom:${strippedValue}`];
           }
@@ -145,7 +145,7 @@ async function generateDocumentation(
 
       for (const value in method) {
         if (value.startsWith('custom:')) {
-          const strippedValue = value.substring(6);
+          const strippedValue = value.substring(7);
           if (strippedValue.length > 0) {
             doc.methods[methodSig][`custom:${strippedValue}`] = method[`custom:${strippedValue}`];
           }
