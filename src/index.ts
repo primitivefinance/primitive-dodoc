@@ -62,7 +62,7 @@ async function generateDocumentation(
       console.log(JSON.stringify(info.devdoc, null, 4));
     }
 
-    const doc = { ...decodeAbi(info.abi), path: source.substr(sourcesPath.length).split('/').slice(0, -1).join('/') }; // get file path without filename
+    const doc: Doc = { ...decodeAbi(info.abi), path: source.substr(sourcesPath.length).split('/').slice(0, -1).join('/') }; // get file path without filename
 
     // Fetches info from userdoc
     for (const errorSig in info.userdoc?.errors) {
@@ -177,6 +177,15 @@ async function generateDocumentation(
     if (info.userdoc?.notice) doc.notice = info.userdoc.notice;
     if (info.devdoc?.details) doc.details = info.devdoc.details;
     if (info.devdoc?.author) doc.author = info.devdoc.author;
+
+    for (const value in info.devdoc) {
+      if (value.startsWith('custom:')) {
+        const strippedValue = value.substring(7);
+        if (strippedValue.length > 0) {
+          doc[`custom:${strippedValue}`] = info.devdoc[`custom:${strippedValue}`];
+        }
+      }
+    }
 
     doc.name = name;
     docs.push(doc);

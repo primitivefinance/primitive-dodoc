@@ -62,7 +62,7 @@ export interface CompilerOutputContractWithDocumentation extends CompilerOutputC
                 };
             };
         };
-        [key: CustomTag<string>]: string
+        [key: CustomTag<string>]: string;
     };
     userdoc?: {
         errors?: {
@@ -144,6 +144,7 @@ export interface Doc {
     notice?: string;
     details?: string;
     author?: string;
+    [key: CustomTag<string>]: string;
     methods: {
         [key: string]: Method;
     };

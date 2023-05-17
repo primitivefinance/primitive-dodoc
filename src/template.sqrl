@@ -13,6 +13,9 @@
 {{@if (it.details)}}*{{it.details}}*{{/if}}
 
 
+{{@if (it['custom:version'])}}**Version:** *{{it['custom:version']}}*{{/if}}
+
+
 {{@if (Object.keys(it.methods).length > 0)}}
 ## Methods
 

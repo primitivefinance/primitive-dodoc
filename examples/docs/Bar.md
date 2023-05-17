@@ -8,6 +8,8 @@ Manages the bar
 
 *Blablou*
 
+**Version:** *v2.0.1*
+
 ## Methods
 
 ### baap

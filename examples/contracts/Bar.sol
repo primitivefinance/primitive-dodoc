@@ -35,6 +35,7 @@ interface IBar {
 /// @author  Primitive
 /// @notice  Manages the bar
 /// @dev     Blablou
+/// @custom:version v2.0.1
 contract Bar is IBar {
     /// @inheritdoc IBar
     function set(T memory t) external { }

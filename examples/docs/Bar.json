@@ -84,5 +84,6 @@
     "notice": "Manages the bar",
     "details": "Blablou",
     "author": "Primitive",
+    "custom:version": "v2.0.1",
     "name": "Bar"
 }
