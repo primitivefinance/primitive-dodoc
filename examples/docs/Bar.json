@@ -25,7 +25,8 @@
                 }
             },
             "outputs": {},
-            "notice": "Cool function bro"
+            "notice": "Cool function bro",
+            "custom:requirement": "Check first requirementCheck second requirement"
         },
         "boop(uint256,uint256)": {
             "stateMutability": "nonpayable",
@@ -74,7 +75,8 @@
                 }
             },
             "notice": "Thrown when doh",
-            "details": "Bad doh error"
+            "details": "Bad doh error",
+            "custom:info": "Additional info"
         }
     },
     "path": "",
@@ -82,5 +84,6 @@
     "notice": "Manages the bar",
     "details": "Blablou",
     "author": "Primitive",
+    "custom:version": "v2.0.1",
     "name": "Bar"
 }

@@ -8,6 +8,8 @@
 
 
 
+
+
 ## Methods
 
 ### tip
@@ -17,8 +19,10 @@ function tip(uint256 much, address mop) external nonpayable
 ```
 
 A strange function
-
 *Someone wrote this weird function...*
+
+
+
 
 #### Parameters
 

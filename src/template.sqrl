@@ -13,6 +13,9 @@
 {{@if (it.details)}}*{{it.details}}*{{/if}}
 
 
+{{@if (it['custom:version'])}}**Version:** *{{it['custom:version']}}*{{/if}}
+
+
 {{@if (Object.keys(it.methods).length > 0)}}
 ## Methods
 
@@ -27,8 +30,13 @@
 
 {{@if (val.notice)}}{{val.notice}}{{/if}}
 
-
 {{@if (val.details)}}*{{val.details}}*{{/if}}
+
+{{@if (val['custom:requirement'])}}**Requirement:** *{{val['custom:requirement']}}*{{/if}}
+
+{{@if (val['custom:danger'])}}**Danger:** *{{val['custom:danger']}}*{{/if}}
+
+{{@if (val['custom:info'])}}**Info:** *{{val['custom:info']}}*{{/if}}
 
 
 {{@if (Object.keys(val.inputs).length > 0)}}
@@ -69,8 +77,13 @@
 
 {{@if (val.notice)}}{{val.notice}}{{/if}}
 
-
 {{@if (val.details)}}*{{val.details}}*{{/if}}
+
+{{@if (val['custom:requirement'])}}**Requirement:** *{{val['custom:requirement']}}*{{/if}}
+
+{{@if (val['custom:danger'])}}**Danger:** *{{val['custom:danger']}}*{{/if}}
+
+{{@if (val['custom:info'])}}**Info:** *{{val['custom:info']}}*{{/if}}
 
 
 {{@if (Object.keys(val.inputs).length > 0)}}
@@ -101,8 +114,13 @@
 
 {{@if (val.notice)}}{{val.notice}}{{/if}}
 
-
 {{@if (val.details)}}*{{val.details}}*{{/if}}
+
+{{@if (val['custom:requirement'])}}**Requirement:** *{{val['custom:requirement']}}*{{/if}}
+
+{{@if (val['custom:danger'])}}**Danger:** *{{val['custom:danger']}}*{{/if}}
+
+{{@if (val['custom:info'])}}**Info:** *{{val['custom:info']}}*{{/if}}
 
 
 {{@if (Object.keys(val.inputs).length > 0)}}

@@ -8,6 +8,8 @@ Put a simple description of the contract here.
 
 *And then a more complicated and tech oriented description of the contract there.*
 
+
+
 ## Methods
 
 ### anotherThing
@@ -17,8 +19,10 @@ function anotherThing(uint256 num) external pure returns (uint256)
 ```
 
 Does another thing when the function is called.
-
 *More info about doing another thing when the function is called.*
+
+
+
 
 #### Parameters
 
@@ -43,6 +47,8 @@ Poorly documented function starting with weird spaces.
 
 
 
+
+
 #### Returns
 
 | Name | Type | Description |
@@ -56,8 +62,10 @@ function doSomething(address a, uint256 b) external nonpayable returns (uint256 
 ```
 
 Does something when this function is called.
-
 *More info about the doSomething, and this even works when the explanation is on two lines.*
+
+
+
 
 #### Parameters
 
@@ -86,6 +94,8 @@ A bad documented payable function.
 
 
 
+
+
 ## Events
 
 ### DoSomething
@@ -95,8 +105,10 @@ event DoSomething(address indexed a, uint256 b)
 ```
 
 Emitted when the function doSomething is called.
-
 *More info about the event can be added here.*
+
+
+
 
 #### Parameters
 
@@ -116,8 +128,10 @@ error RandomError(address expected, address actual)
 ```
 
 Thrown when an error happens.
-
 *More info about the error.*
+
+
+
 
 #### Parameters
 

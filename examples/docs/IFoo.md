@@ -8,6 +8,8 @@
 
 
 
+
+
 ## Methods
 
 ### nonces
@@ -17,8 +19,10 @@ function nonces(address _0) external view returns (uint256)
 ```
 
 Returns the nonce of an address
-
 *Nonces much*
+
+
+
 
 #### Parameters
 

@@ -32,7 +32,8 @@
                 }
             },
             "notice": "Emitted when transfer",
-            "details": "Transfer some stuff"
+            "details": "Transfer some stuff",
+            "custom:danger": "This event exposes private info"
         }
     },
     "errors": {
@@ -45,7 +46,8 @@
                 }
             },
             "notice": "Thrown when doh",
-            "details": "Bad doh error"
+            "details": "Bad doh error",
+            "custom:info": "Additional info"
         }
     },
     "path": "",

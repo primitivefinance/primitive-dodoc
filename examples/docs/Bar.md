@@ -8,6 +8,8 @@ Manages the bar
 
 *Blablou*
 
+**Version:** *v2.0.1*
+
 ## Methods
 
 ### baap
@@ -17,6 +19,8 @@ function baap(uint256 bar, address aar) external nonpayable
 ```
 
 Baaps the yaps
+
+
 
 
 
@@ -34,6 +38,8 @@ function boop(uint256 bar) external nonpayable
 ```
 
 Cool function bro
+
+**Requirement:** *Check first requirementCheck second requirement*
 
 
 
@@ -53,6 +59,8 @@ Alt cool function bro
 
 
 
+
+
 #### Parameters
 
 | Name | Type | Description |
@@ -65,6 +73,8 @@ Alt cool function bro
 ```solidity
 function set(IBar.T t) external nonpayable
 ```
+
+
 
 
 
@@ -90,6 +100,8 @@ Emitted when transfer
 
 
 
+
+
 #### Parameters
 
 | Name | Type | Description |
@@ -107,8 +119,10 @@ error Doh(bool yay)
 ```
 
 Thrown when doh
-
 *Bad doh error*
+
+
+**Info:** *Additional info*
 
 #### Parameters
 

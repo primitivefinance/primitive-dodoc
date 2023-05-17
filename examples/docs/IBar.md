@@ -8,6 +8,8 @@
 
 
 
+
+
 ## Methods
 
 ### boop
@@ -15,6 +17,8 @@
 ```solidity
 function boop(uint256 bar) external nonpayable
 ```
+
+
 
 
 
@@ -31,6 +35,8 @@ function boop(uint256 bar) external nonpayable
 ```solidity
 function set(IBar.T t) external nonpayable
 ```
+
+
 
 
 
@@ -53,8 +59,10 @@ event Transfer(uint256 foo)
 ```
 
 Emitted when transfer
-
 *Transfer some stuff*
+
+**Danger:** *This event exposes private info*
+
 
 #### Parameters
 
@@ -73,8 +81,10 @@ error Doh(bool yay)
 ```
 
 Thrown when doh
-
 *Bad doh error*
+
+
+**Info:** *Additional info*
 
 #### Parameters
 
