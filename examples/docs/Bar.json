@@ -25,7 +25,8 @@
                 }
             },
             "outputs": {},
-            "notice": "Cool function bro"
+            "notice": "Cool function bro",
+            "custom:requirement": "Check first requirementCheck second requirement"
         },
         "boop(uint256,uint256)": {
             "stateMutability": "nonpayable",

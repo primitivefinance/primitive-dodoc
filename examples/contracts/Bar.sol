@@ -40,7 +40,8 @@ contract Bar is IBar {
     function set(T memory t) external { }
 
     /// @notice Cool function bro
-    /// @custom:requirement Check this requirement
+    /// @custom:requirement Check first requirement
+    /// @custom:requirement Check second requirement
     function boop(uint256 bar) external { }
 
     /// @notice Alt cool function bro

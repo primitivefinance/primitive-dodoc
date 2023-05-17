@@ -59,7 +59,7 @@ event Transfer(uint256 foo)
 Emitted when transfer
 *Transfer some stuff*
 
-
+**Danger:** *This event exposes private info*
 
 
 #### Parameters
