@@ -1,6 +1,6 @@
 # Dodoc
 
-![version](https://img.shields.io/npm/v/@primitivefi/hardhat-dodoc) ![npm](https://img.shields.io/npm/dt/@primitivefi/hardhat-dodoc) ![license](https://img.shields.io/npm/l/@primitivefi/hardhat-dodoc)
+![version](https://img.shields.io/npm/v/@adradr/hardhat-dodoc) ![npm](https://img.shields.io/npm/dt/@adradr/hardhat-dodoc) ![license](https://img.shields.io/npm/l/@adradr/hardhat-dodoc)
 
 Zero-config Hardhat plugin to generate documentation for all your Solidity contracts.
 
@@ -10,7 +10,6 @@ Zero-config Hardhat plugin to generate documentation for all your Solidity contr
 - 📖 Default output to Markdown
 - 🔧 Extendable using custom templates
 
-Want to see a live example? Check out [Primitive documentation](https://docs.primitive.finance/)!
 
 ## 📦 Installation
 
@@ -18,20 +17,20 @@ First thing to do is to install the plugin in your Hardhat project:
 
 ```bash
 # Using yarn
-yarn add @primitivefi/hardhat-dodoc
+yarn add @adradr/hardhat-dodoc
 
 # Or using npm
-npm i @primitivefi/hardhat-dodoc
+npm i @adradr/hardhat-dodoc
 ```
 
 Next step is simply to include the plugin into your `hardhat.config.js` or `hardhat.config.ts` file:
 
 ```typescript
 // Using JavaScript
-require('@primitivefi/hardhat-dodoc');
+require('@adradr/hardhat-dodoc');
 
 // Using ES6 or TypeScript
-import '@primitivefi/hardhat-dodoc';
+import '@adradr/hardhat-dodoc';
 ```
 
 And you're done! Documentation will be automatically generated on the next compilation and saved into the `docs` folder at the root of your project.
@@ -138,3 +137,6 @@ Feel free to open an issue if you need help or if you encounter a problem! Here 
 - State variables overriding functions defined by an interface might "erase" the name of the parameters. A current workaround is to name the function parameters using the `_0`, `_1`, ... format.
 - Special functions such as `constructor`, `fallback` and `receive` might not be rendered.
 - Custom NatSpec tags `@custom:...` are not rendered (yet).
+
+## Credits
+The repo originally is written by @primitivefi and forked by @adradr to extend its functionality, since the original repo seems to be abandoned.

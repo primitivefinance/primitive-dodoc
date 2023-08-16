@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "description": "Zero-config Hardhat plugin to generate documentation for all your Solidity contracts",
   "repository": "github:adradr/hardhat-dodoc",
-  "author": "Primitive",
+  "author": "adradr, Primitive",
   "license": "MIT",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
