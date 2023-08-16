@@ -1,8 +1,8 @@
 {
-  "name": "@primitivefi/hardhat-dodoc",
-  "version": "0.2.3",
+  "name": "@adradr/hardhat-dodoc",
+  "version": "0.3.0",
   "description": "Zero-config Hardhat plugin to generate documentation for all your Solidity contracts",
-  "repository": "github:primitivefinance/primitive-dodoc",
+  "repository": "github:adradr/hardhat-dodoc",
   "author": "Primitive",
   "license": "MIT",
   "main": "dist/src/index.js",
